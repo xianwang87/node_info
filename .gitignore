@@ -1,0 +1,5 @@
+node_modules
+*.log
+views/resources/remind
+views/resources/mydate
+.project

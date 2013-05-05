@@ -1,0 +1,40 @@
+div.task-edit-container
+	div.task-edit
+		form#add-edit-task.form-horizontal(name="add-edit-task")
+			div.control-group
+				label.control-label(for="task-name") Name
+				div.controls
+					input#task-name(type="text", placeholder="Task Name")
+			div.control-group
+				label.control-label Priority
+				div.controls
+					select#task-priority.span3
+						option(value=1) Important
+						option(value=2) Urgency
+						option(value=3) Urgency &amp; Important
+			div.control-group
+				label.control-label Date
+				div.controls
+					div#datetimepicker1.input-append.date
+						input.task-date(data-format="yyyy-MM-dd", type="text")
+						span.add-on
+							i(data-time-icon="icon-time", data-date-icon="icon-calendar")
+					span.task-time-from-label From
+					div#datetimepicker-time-from.input-append.date
+						input.task-date(data-format="hh:mm:ss", type="text")
+						span.add-on
+							i(data-time-icon="icon-time", data-date-icon="icon-calendar")
+					span.task-time-from-label To
+					div#datetimepicker-time-to.input-append.date
+						input.task-date(data-format="hh:mm:ss", type="text")
+						span.add-on
+							i(data-time-icon="icon-time", data-date-icon="icon-calendar")
+			div.control-group
+				label.control-label(for="task-desc") Description
+				div.controls
+					textarea#task-description(rows="3", cols="10", placeholder="Task Description")
+			div.control-group.hidden
+				div.submit-button-group
+					button#add-edit-task-submit.btn.btn-middle.btn-primary(type="button") Submit
+					
+script(type='text/javascript', src="/javascripts/list/list-json-edit.js")

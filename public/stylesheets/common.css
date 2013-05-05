@@ -1,0 +1,43 @@
+body {
+	margin: 0 auto;
+	padding: 0;
+}
+.top-title {
+
+}
+.left-nav {
+	margin-left: 0px;
+}
+.task-edit .form-horizontal .control-label {
+	width: 100px;
+	text-align: left;
+}
+.task-edit .form-horizontal .controls {
+	margin-left: 100px;
+}
+#task-description {
+	width: 450px;
+}
+.task-date {
+	width: 80px;
+}
+.task-time-from-label {
+	margin: 0 5px 0 20px;
+}
+.submit-button-group {
+	text-align: right;
+}
+.submit-button-group button:last-child {
+	margin-right: 35px;
+}
+a.carousel-control {
+	font-size: 25px;
+	line-height: 40px;
+	font-weight: bold;
+}
+.my-bug a {
+	margin: 0 5px;
+}
+.hidden {
+	display: none;
+}

@@ -1,0 +1,60 @@
+extends layout
+
+block head-css
+	link(rel='stylesheet', href='/stylesheets/task/taskcommon.css')
+
+block content
+	div.span12
+		div.span3.left-nav
+			div.well
+				ul.nav.nav-list
+					li.nav-header To-do
+					li.active
+						a(href='#') Today
+					li
+						a(href='#') Tomorrow
+					li
+						a(href='#') This week
+					li.nav-header Not Finished
+					li
+						a(href='#') All
+					li
+						a(href='#') Last 3 days
+					li.divider
+					li
+						a(href='#') Finished
+		div.span9
+			div.task-op-btn-group
+				button.btn.btn-mini.btn-primary.btn-add(type="button") Add
+			table.table.table-tasks
+				thead
+					tr
+						th.task-order #
+						th.task-priority Priority
+						th Task
+						th.task-date Date
+						th.task-status Status
+				tbody
+					each item, i in todos
+						tr.first-row(name="row-id-#{item.id}")
+							td(rowspan="2") #{i}
+							td #{item.priority}
+							td #{item.name}
+							td #{item.onDate}
+							td #{item.status}
+						tr.second-row(name="row-id-#{item.id}")
+							td(colspan="4") 
+								span.desc-content #{item.desc} &nbsp;
+								span.desc-time (#{item.fromTime} - #{item.toTime})
+								div.task-op-items
+									ul.inline
+										li.icon-edit
+										li.icon-remove
+										li.icon-th
+							
+							
+							
+block footer-script
+	script(type='text/javascript', src="/javascripts/layoutabout/commonApp.js")
+	script(type='text/javascript', src="/javascripts/list/list-home.js")
+	

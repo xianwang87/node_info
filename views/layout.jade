@@ -1,0 +1,44 @@
+doctype 5
+html
+	head
+		title= title
+		link(rel='stylesheet', href='/stylesheets/style.css')
+		link(rel='stylesheet', href='/stylesheets/bootstrap.css')
+		link(rel='stylesheet', href='/stylesheets/bootstrap-datetimepicker.min.css')
+		link(rel='stylesheet', href='/stylesheets/common.css')
+		block head-css
+		script(type='text/javascript', src="/javascripts/jquery-1.9.1.js")
+		script(type='text/javascript', src="/javascripts/underscore-min.js")
+		script(type='text/javascript', src="/javascripts/bootstrap.js")
+		script(type='text/javascript', src="/javascripts/bootstrap-datetimepicker.min.js")
+		script(type='text/javascript', src="/javascripts/common/dlg/dialog.js")
+		block head-script
+	body
+		div.container
+			input(type="hidden", name="top-link-el", value="#{top_link}")
+			div.top-title.span12
+				div.navbar
+					div.navbar-inner
+						a.brand(href="javascript: void(0);") Title
+						ul#top-link-bar.nav
+							li#top-home-link
+								a(href="/") Home
+							li#top-resources-link
+								a(href="/resourceHome") Resources
+							li#top-mywork-link
+								a(href="/myworkDone") My Work
+			div.content.span12
+				block content
+			div.footter
+			
+			div.helper-hidden-els
+				div#myCommonModalDlg.modal.hide.fade.my-common-modal-dlg(tabindex="-1", role="dialog", aria-labelledby="myModalLabel",aria-hidden="true")
+					div.modal-header
+						button.close(type="button", data-dismiss="modal", aria-hidden="true") x
+						h3#myCommonModalDlg-title Default Title
+					div.modal-body
+					div.modal-footer
+						button.btn(data-dismiss="modal") Close
+						button#myCommonModalDlg-save.btn.btn-primary Save
+			
+	block footer-script

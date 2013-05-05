@@ -1,0 +1,20 @@
+doctype 5
+html
+	head
+		title= title
+		link(rel='stylesheet', href='/stylesheets/style.css')
+		link(rel='stylesheet', href='/stylesheets/bootstrap.css')
+		link(rel='stylesheet', href='/stylesheets/bootstrap-datetimepicker.min.css')
+		link(rel='stylesheet', href='/stylesheets/common.css')
+		block head-css
+		script(type='text/javascript', src="/javascripts/jquery-1.9.1.js")
+		script(type='text/javascript', src="/javascripts/bootstrap.js")
+		script(type='text/javascript', src="/javascripts/bootstrap-datetimepicker.min.js")
+		block head-script
+	body
+		div.container
+			div.content.span12
+				block content
+			div.footter
+			
+	block footer-script

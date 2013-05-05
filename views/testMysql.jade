@@ -1,0 +1,23 @@
+extends layout
+
+block css_content
+	link(rel='stylesheet', href='/stylesheets/mylist.css')
+
+block content
+	h1= title
+	p The result of #{table_title}
+	div.toolbar
+		input(type="button", value="Add", id="do_add_list")
+	table.table.table-hover
+		thead
+			tr
+				th Order
+				th Name
+				th Age
+		tbody
+		- if (results)
+			each item, i in results
+				tr
+					td= i
+					td= item.name
+					td= item.age

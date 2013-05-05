@@ -1,0 +1,45 @@
+extends ../layout
+
+block head-css
+	link(rel='stylesheet', href='/stylesheets/mywork/mywork.css')
+
+block content
+	div.container
+		input(type="hidden", name="res-left-nav-link", value="#{res_nav_link}")
+		div.span12
+			div.span3
+				div.well
+					ul#resouce-left-nav-bar.nav.nav-list
+						li.nav-header My Work
+						li#resource-remind-left-link
+							a(href="/myworkDone") Finished
+			div.span8
+				div.items-container
+					div.single-date-work
+						div.work-date
+							| 2013/4/19
+						ol
+							li
+								div.item-name
+									| bug fix: 
+									span.my-bug 25082 25171 25778 25838 25890
+								div.item-desc
+									ul
+										li tip for user profile vlan mapping
+										li make assigned user profiles in drawer clickable
+										li CVG flash does not work
+										li no interface setting for SR2124P
+										li when delete widget, should only one pop up dialog
+					div.single-date-work
+						div.work-date
+							| 2013/4/18
+						ol
+							li
+								div.item-name
+									| bug fix: 
+									span.my-bug 25295 25694 23299
+								div.item-desc
+									| fix zoom in for  table, increase table row height by 3 pixels
+				
+block footer-script
+	script(type='text/javascript', src="/javascripts/layoutabout/commonApp.js")

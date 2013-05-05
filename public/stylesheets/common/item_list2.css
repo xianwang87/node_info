@@ -1,0 +1,30 @@
+.single-item {
+	border-bottom: 1px solid #999;
+	margin-bottom: 15px;
+	padding-left: 25px;
+	padding-bottom: 10px;
+}
+.item-desc {
+	font-size: 12px;
+	padding-left: 15px;
+	color: #999;
+}
+.item-sub-content {
+	font-size: 13px;
+}
+.items-notes {
+	margin-top: 50px;
+}
+.note-name {
+	background-color: #2f96b4;
+	font-weight: bold;
+	font-size: 12px;
+	padding: 3px 0;
+}
+.note-desc {
+	font-size: 13px;
+	color: #999;
+}
+.single-note {
+	margin-bottom: 15px;
+}

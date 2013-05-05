@@ -1,0 +1,56 @@
+extend ../blankLayout
+
+block head-css
+	link(rel='stylesheet', href='/stylesheets/permission/login.css')
+
+block head-script
+	script(type='text/javascript', src="/javascripts/encode/md5.js")
+	script(type='text/javascript', src="/javascripts/encode/enc-base64-min.js")
+
+block content
+	div.hero-unit.login-hero-unit
+		h1 Hello, world
+		p This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.
+	div.span3
+		form#login-form.form-vertical(name="login-form", action="/dologin", method="POST")
+			div.control-group
+				label.control-label(for="login-name") User Name
+				div.controls
+					input#login-name(type="text", name="userName", placeholder="User Name")
+			div.control-group
+				label.control-label(for="login-pwd") Password
+				div.controls
+					input#login-pwd(type="password", name="userPwd", placeholder="password")
+			div.control-group
+				div.submit-button-group
+					button#login-submit.btn.btn-middle.btn-primary(type="button") Login
+					a#register-new-user(href="javascript: void(0);") New user?
+	div.span8
+		span#md5-value
+		div#login-carousel.carousel.slide
+			ol.carousel-indicators
+				li(data-target="#login-carousel", data-slide-to="0")
+				li(data-target="#login-carousel", data-slide-to="1")
+				li(data-target="#login-carousel", data-slide-to="2")
+			div.carousel-inner
+				div.item
+					img(src="/images/carousel/bootstrap-mdo-sfmoma-01.jpg")
+					div.carousel-caption
+						h4 First Thumbnail label
+						p Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
+				div.item
+					img(src="/images/carousel/bootstrap-mdo-sfmoma-02.jpg")
+					div.carousel-caption
+						h4 Second Thumbnail label
+						p Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
+				div.item.active
+					img(src="/images/carousel/bootstrap-mdo-sfmoma-03.jpg")
+					div.carousel-caption
+						h4 Third Thumbnail label
+						p Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
+			a.left.carousel-control(href="#login-carousel", data-slide="prev") &lt;
+			a.right.carousel-control(href="#login-carousel", data-slide="next") &gt;
+			
+			
+block footer-script
+	script(type='text/javascript', src="/javascripts/permission/login.js")

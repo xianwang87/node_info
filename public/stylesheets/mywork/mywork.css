@@ -1,0 +1,21 @@
+.single-date-work {
+	margin: 10px 0px 20px 15px;
+	border-bottom: 1px dotted #f89406;
+}
+.work-date {
+	font-size: 14px;
+	font-weight: bold;
+	padding: 2px 0;
+	background-color: #fcf8e3;
+	text-align: center;
+}
+.single-date-work ol {
+	margin-left: 30px;
+}
+.item-name {
+	font-size: 13px;
+}
+.item-desc {
+	font-size: 13px;
+	color: #999;
+}

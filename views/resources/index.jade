@@ -1,0 +1,34 @@
+extends layout
+
+
+block content
+	div.container
+		input(type="hidden", name="res-left-nav-link", value="#{res_nav_link}")
+		div.span12
+			div.span3
+				div.well
+					ul#resouce-left-nav-bar.nav.nav-list
+						li.nav-header HM
+						li#resource-remind-left-link
+							a(href="/resource/remind") Reminds
+						li#resource-mydate-left-link
+							a(href="/resource/mydate") Date
+						li#resource-document-left-link
+							a(href="#") Documents
+						li#resource-function-left-link
+							a(href="#") Functions
+						li#resource-tech-left-link
+							a(href="#") Technologies
+						li#resource-test-left-link
+							a(href="#") Tests
+						li#resource-tool-left-link
+							a(href="#") Tools
+						li.divider
+						li#resouce-help-left-link
+							a(href="#") Help
+			div.span8
+				block resource_content
+				
+block footer-script
+	script(type='text/javascript', src="/javascripts/layoutabout/commonApp.js")
+	script(type='text/javascript', src="/javascripts/resource/resourceApp.js")
