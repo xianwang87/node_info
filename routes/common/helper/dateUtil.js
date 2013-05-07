@@ -36,7 +36,22 @@ var getOnlyDateStr = function(time, diffTime) {
 	return fillNumber(year) + '-' + fillNumber(month) + '-' + fillNumber(dayOfMonth);
 };
 
+var getOnlyDateWithDeltaDayStr = function(time, delta) {
+	return getOnlyDateStr(time, delta*24*3600000*-1);
+};
+
+var getOnlyDateForAWeekStr = function(time) {
+	var date = new Date(time);
+	var dayOfWeek = date.getDay();
+	return {
+		start: getOnlyDateWithDeltaDayStr(time, dayOfWeek*-1),
+		end: getOnlyDateWithDeltaDayStr(time, 6 - dayOfWeek)
+	};
+};
+
 exports.dateUtil = {
 	getDateStr: getStringKindOfDate,
-	getOnlyDateStr: getOnlyDateStr
+	getOnlyDateStr: getOnlyDateStr,
+	getOnlyDateWithDeltaDayStr: getOnlyDateWithDeltaDayStr,
+	getOnlyDateForAWeekStr: getOnlyDateForAWeekStr
 };

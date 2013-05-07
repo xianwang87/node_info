@@ -57,3 +57,6 @@ th.task-status {
   margin: 0px;
   text-align: right;
 }
+.task-op-items ul li {
+  cursor: pointer;
+}

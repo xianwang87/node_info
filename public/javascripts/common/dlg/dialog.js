@@ -1,10 +1,14 @@
 ;(function($) {
 	var root = this;
 	root.MyInfoN = root.MyInfoN || {};
+	root.MyInfoN.dlgModal = root.MyInfoN.dlgModal || {};
 	
 	var showModalDialog = function(html) {
 		$("#myCommonModalDlg .modal-body").html(html);
 		$("#myCommonModalDlg").modal({});
+	};
+	var hideModalDialog = function() {
+		$("#myCommonModalDlg").hide();
 	};
 	
 	$(function() {
@@ -41,5 +45,9 @@
 		} else {
 			showModalDialog(html);
 		}
+	};
+	
+	root.MyInfoN.dlgModal.hide = function() {
+		hideModalDialog();
 	};
 })(jQuery);

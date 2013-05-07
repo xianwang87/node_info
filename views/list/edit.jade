@@ -19,7 +19,12 @@ div.task-edit-container
 						input.task-date(data-format="yyyy-MM-dd", type="text")
 						span.add-on
 							i(data-time-icon="icon-time", data-date-icon="icon-calendar")
-					span.task-time-from-label From
+			div.control-group
+				label.control-label
+					label.checkbox
+						input(type="checkbox") 
+						| Time
+				div.controls
 					div#datetimepicker-time-from.input-append.date
 						input.task-date(data-format="hh:mm:ss", type="text")
 						span.add-on

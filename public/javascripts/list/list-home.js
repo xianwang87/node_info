@@ -28,7 +28,8 @@ $(function() {
 					ttime: $("#datetimepicker-time-to input").val()
 				},
 				function(data, textStatus) {
-					alert("returned..");
+					MyInfoN.dlgModal.hide();
+					MyInfoN.browser.refresh();
 				},
 				"json");
 	});
@@ -55,5 +56,30 @@ $(function() {
 			$parent = $(this).parent("tbody");
 		$parent.find("tr[name=" + name + "]").removeClass("hover");
 		$parent.find("tr.second-row[name=" + name + "] div.task-op-items").hide();
+	});
+	
+	
+	var removeACertainTask = function(e) {
+		var id = $(this).parents(".task-op-items").attr("data-el-id");
+		console.log("id::" + id);
+		$.post('/list/removeATask', 
+				{taskId: id},
+				function(data, textStatus) {
+					MyInfoN.browser.refresh();
+				}, 'json');
+	};
+	$(".table-tasks .task-op-items ul li").each(function() {
+		var $this = $(this);
+		if ($this.hasClass("icon-remove")) {
+			$this.click(removeACertainTask);
+		}
+	});
+	
+	var curLink = $("input[name='res-left-nav-link']").val() || 'today';
+	curLink = "task-" + curLink + "-left-link";
+	$("ul#task-left-nav-bar li").each(function() {
+		if (curLink == this.id) {
+			$(this).addClass("active");
+		}
 	});
 });

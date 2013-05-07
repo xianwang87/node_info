@@ -4,17 +4,18 @@ block head-css
 	link(rel='stylesheet', href='/stylesheets/task/taskcommon.css')
 
 block content
+	input(type="hidden", name="res-left-nav-link", value="#{res_nav_link}")
 	div.span12
 		div.span3.left-nav
 			div.well
-				ul.nav.nav-list
+				ul#task-left-nav-bar.nav.nav-list
 					li.nav-header To-do
-					li.active
-						a(href='#') Today
-					li
-						a(href='#') Tomorrow
-					li
-						a(href='#') This week
+					li#task-today-left-link
+						a(href='/list/items/all/today') Today
+					li#task-tomorrow-left-link
+						a(href='/list/items/all/tomorrow') Tomorrow
+					li#task-thisweek-left-link
+						a(href='/list/items/all/thisweek') This week
 					li.nav-header Not Finished
 					li
 						a(href='#') All
@@ -46,7 +47,7 @@ block content
 							td(colspan="4") 
 								span.desc-content #{item.desc} &nbsp;
 								span.desc-time (#{item.fromTime} - #{item.toTime})
-								div.task-op-items
+								div.task-op-items(data-el-id="#{item.id}")
 									ul.inline
 										li.icon-edit
 										li.icon-remove

@@ -28,7 +28,8 @@ $(".task-edit-container").ready(function() {
 					ttime: $("#datetimepicker-time-to input").val()
 				},
 				function(data, textStatus) {
-					alert("returned..");
+					MyInfoN.dlgModal.hide();
+					MyInfoN.browser.refresh();
 				},
 				"json");
 	});

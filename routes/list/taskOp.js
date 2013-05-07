@@ -37,13 +37,64 @@ var addNewTask = function(req, res){
 	};
 		
 	mysql.query(getInsertSentence(), function(err, results, fields) {
-		res.write("hello, may be successful");
-		res.end();
+		res.json({rs: true});
 	});
 };
 
+var removeATask = function(req, res){
+	var taskId = req.body.taskId;
+	mysql.query("delete from my_tasks where id=?", [taskId], 
+		function(err, results, fields) {
+			res.json({rs: true});
+		});
+};
+
 var getTodos = function(req, res) {
-	mysql.query("select id, name, mydesc, priority, status, ondate, fromtime, totime from my_tasks order by adddate desc", 
+	var status = req.params.status,
+		datet = req.params.datet;
+	if (!datet) {
+		datet = 'today';
+	}
+	var nav = datet;
+	var getQuerySentence = function() {
+		var params = [];
+		var sql = "select id, name, mydesc, priority, status, ondate, fromtime, totime from my_tasks";
+		if (status || datet) {
+			sql += " where 1=1";
+			if (status) {
+				if (status === 'finished') {
+					sql += " and status=?";
+					params.push(enumUtil.getValue(taskenum.TASK_STATUS.FINISHED));
+				} else if (status === 'notfinished') {
+					sql += " and status!=?";
+					params.push(enumUtil.getValue(taskenum.TASK_STATUS.FINISHED));
+				}
+			}
+			
+			if (datet) {
+				if (datet === 'today') {
+					sql += " and ondate=?";
+					params.push(dateUtil.getOnlyDateStr(new Date().getTime()));
+				} else if (datet === 'tomorrow') {
+					sql += " and ondate=?";
+					params.push(dateUtil.getOnlyDateWithDeltaDayStr(new Date().getTime(), 1));
+				} else if (datet === 'thisweek') {
+					sql += " and ondate >= ? and ondate <= ?";
+					var weekRange = dateUtil.getOnlyDateForAWeekStr();
+					params.push(weekRange.start);
+					params.push(weekRange.end);
+				}
+			}
+		}
+		sql += " order by adddate desc";
+		return {
+			sql: sql,
+			params: params
+		};
+	};
+	
+	var myQuery = getQuerySentence();
+	mysql.query(myQuery.sql, myQuery.params, 
 		function(err, results, fields) {
 			todos = [];
 			if (results) {
@@ -60,7 +111,7 @@ var getTodos = function(req, res) {
 					});
 				});
 			}
-			res.render('index', { title: 'To-do list', top_link: 'home', todos: todos});
+			res.render('index', { title: 'To-do list', top_link: 'home', todos: todos, res_nav_link: nav});
 		}
 	);
 };
@@ -69,3 +120,4 @@ var getTodos = function(req, res) {
 exports.addNewTask = addNewTask;
 exports.getTodos = getTodos;
 exports.newATask = newATask;
+exports.removeATask = removeATask;
