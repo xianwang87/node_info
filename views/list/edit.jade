@@ -16,24 +16,24 @@ div.task-edit-container
 				label.control-label Date
 				div.controls
 					div#datetimepicker1.input-append.date
-						input.task-date(data-format="yyyy-MM-dd", type="text")
+						input.task-date(type="text", size="10", value="", readonly)
 						span.add-on
-							i(data-time-icon="icon-time", data-date-icon="icon-calendar")
+							i.icon-th
 			div.control-group
 				label.control-label
 					label.checkbox
-						input(type="checkbox") 
+						input.my-task-time-check(type="checkbox") 
 						| Time
-				div.controls
+				div.controls.my-task-edit-time-range.hidden
 					div#datetimepicker-time-from.input-append.date
-						input.task-date(data-format="hh:mm:ss", type="text")
+						input.task-date(type="text", size="10", value="", readonly)
 						span.add-on
-							i(data-time-icon="icon-time", data-date-icon="icon-calendar")
+							i.icon-calendar
 					span.task-time-from-label To
 					div#datetimepicker-time-to.input-append.date
-						input.task-date(data-format="hh:mm:ss", type="text")
+						input.task-date(type="text", size="10", value="", readonly)
 						span.add-on
-							i(data-time-icon="icon-time", data-date-icon="icon-calendar")
+							i.icon-calendar
 			div.control-group
 				label.control-label(for="task-desc") Description
 				div.controls

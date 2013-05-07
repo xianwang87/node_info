@@ -1,21 +1,4 @@
 $(function() {
-	$('#datetimepicker1').datetimepicker({
-		language: 'en',
-		pick12HourFormat: true,
-		pickTime: false
-	});
-	
-	$('#datetimepicker-time-from').datetimepicker({
-		language: 'en',
-		pick12HourFormat: true,
-		pickDate: false
-	});
-	
-	$('#datetimepicker-time-to').datetimepicker({
-		language: 'en',
-		pick12HourFormat: true,
-		pickDate: false
-	});
 	
 	$("#add-edit-task-submit").click(function(e) {
 		$.post("/addNewTask",
