@@ -43,7 +43,7 @@ $(".task-edit-container").ready(function() {
 				{
 					name: $("#task-name").val(),
 					priority: $("#task-priority").val(), 
-					desc: $("#task-description").val(),
+					desc: tinyMCE.activeEditor.getContent(),
 					onDate: $("#datetimepicker1 input").val(),
 					ftime: $("#datetimepicker-time-from input").val(),
 					ttime: $("#datetimepicker-time-to input").val()
@@ -66,4 +66,6 @@ $(".task-edit-container").ready(function() {
 	
 	var priorityVal = $("#task-priority-val").val() || 0;
 	$("#task-priority").val(priorityVal);
+	
+	MyInfoN.RT.TinyMCE.initBase("#task-description");
 });

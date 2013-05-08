@@ -41,3 +41,6 @@ a.carousel-control {
 .hidden {
 	display: none;
 }
+.modal-body {
+	max-height: 550px;
+}

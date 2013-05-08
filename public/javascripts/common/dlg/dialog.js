@@ -30,7 +30,9 @@
 	root.MyInfoN.ModalIt = function(options) {
 		options = options || {};
 		widthTmp = options.width || 760;
+		var heightTmp = options.height || 500;
 		$("#myCommonModalDlg").width(widthTmp);
+		$("#myCommonModalDlg .modal-body").height(heightTmp);
 		$("#myCommonModalDlg-title").html(options.title || "Default Title");
 		$("#myCommonModalDlg-save").unbind("click", pre_click_event);
 		$("#myCommonModalDlg-save").click(options.saveFunc);

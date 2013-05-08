@@ -22,6 +22,7 @@ $(function() {
 			url: "/list/newATask",
 			title: "Add New Task",
 			width: 650,
+			height: 450,
 			saveFunc: function(e) {
 				$("#add-edit-task-submit").click();
 			}
@@ -52,7 +53,6 @@ $(function() {
 		};
 	};
 	var editACertainTask = function(id) {
-		console.log("id::"+id);
 		return function(e) {
 			MyInfoN.ModalIt({
 				url: "/list/editATask",
@@ -61,6 +61,7 @@ $(function() {
 				},
 				title: "Edit Task",
 				width: 650,
+				height: 450,
 				saveFunc: function(e) {
 					//$("#add-edit-task-submit").click();
 					MyInfoN.dlgModal.hide();

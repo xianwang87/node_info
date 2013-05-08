@@ -45,7 +45,8 @@ block content
 							td #{item.status}
 						tr.second-row(name="row-id-#{item.id}")
 							td(colspan="4") 
-								span.desc-content #{item.desc} &nbsp;
+								div.desc-content
+									!{item.desc}
 								span.desc-time (#{item.fromTime} - #{item.toTime})
 								div.task-op-items(data-el-id="#{item.id}")
 									ul.inline
@@ -56,6 +57,8 @@ block content
 							
 							
 block footer-script
+	script(type='text/javascript', src="/javascripts/tinymce/tinymce.min.js")
+	script(type='text/javascript', src="/javascripts/common/richtext.js")
 	script(type='text/javascript', src="/javascripts/layoutabout/commonApp.js")
 	script(type='text/javascript', src="/javascripts/list/list-home.js")
 	
