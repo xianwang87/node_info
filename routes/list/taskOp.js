@@ -56,9 +56,7 @@ var editATask = function(req, res) {
 		function(err, results, fields) {
 			var editBo = MyTaskBO();
 			if (results) {
-				console.log(results);
 				var result0 = results[0];
-				console.log(result0);
 				editBo.id = result0.id;
 				editBo.taskName = result0.name;
 				editBo.priority = result0.priority;
