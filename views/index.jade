@@ -42,12 +42,13 @@ block content
 							td #{item.priority}
 							td #{item.name}
 							td #{item.onDate}
-							td #{item.status}
+								span.desc-time (#{item.fromTime} - #{item.toTime})
+							td(click-modify="task_status", click-modify-after="refresh", click-modify-type="select", 
+								refer-id="#{item.id}", task-status-code="#{item.statusCode}") #{item.status}
 						tr.second-row(name="row-id-#{item.id}")
 							td(colspan="4") 
 								div.desc-content
 									!{item.desc}
-								span.desc-time (#{item.fromTime} - #{item.toTime})
 								div.task-op-items(data-el-id="#{item.id}")
 									ul.inline
 										li.icon-edit

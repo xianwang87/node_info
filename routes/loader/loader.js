@@ -4,7 +4,7 @@ var lists = require('../list/lists')
   	, mywork = require('../mywork/mywork')
   	, login = require('../permission/login')
   	, learn = require('../learning/learn')
-  	, simpleGetter = require('../common/helper/simpleGetter').getter;
+  	, simpleGetter = require('../common/helper/simpleGetter');
   
 var debug_flg = true;
 
@@ -33,7 +33,9 @@ exports.loadRoutes = function(app) {
 };
 
 var loadSomeSimpleHelperRoutes = function(app) {
-	app.get('/help/bugzilla/host', simpleGetter.bugziallHost)
+	app.get('/help/bugzilla/host', simpleGetter.getter.bugziallHost)
+	app.get('/get/def/:defName', simpleGetter.getSimpleDef)
+	app.post('/getLisDefs', simpleGetter.getLisDefs)
 };
 var loadTaskAboutRoutes = function(app) {
 	app.post('/list/newATask', lists.taskOp.newATask);
@@ -41,4 +43,5 @@ var loadTaskAboutRoutes = function(app) {
 	app.post('/list/removeATask', lists.taskOp.removeATask);
 	app.get('/list/items/:status/:datet', lists.taskOp.getTodos);
 	app.post('/list/editATask', lists.taskOp.editATask);
+	app.post('/list/task/chgStatus', lists.taskOp.chgTaskStatus)
 };

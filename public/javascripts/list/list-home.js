@@ -86,4 +86,43 @@ $(function() {
 			$(this).addClass("active");
 		}
 	});
+	
+	var def_list_obj = [];
+	$("[click-modify]").each(function(i, el) {
+		var $el = $(el);
+		def_list_obj.push({def: $el.attr("click-modify"), type: $el.attr("click-modify-type")});
+	});
+	
+	var def_list_obj_def = _.map(def_list_obj, function(obj) {return obj.def;});
+	if (def_list_obj_def.length > 0) {
+		MyInfoN.defs.load(def_list_obj_def, function() {
+			MyInfoN.widget.helper.initHiddenEls(def_list_obj);
+			$("[click-modify]").dblclick(function(e) {
+				var $this = $(this),
+					refId = $this.attr("refer-id"),
+					afterMethod = $this.attr("click-modify-after"),
+					statusCode = $this.attr("task-status-code");
+				MyInfoN.widget.helper.showWidget("select", "task_status", $this, {
+					whenShow: function($el) {
+						$el.val(statusCode);
+					},
+					events: {
+						change: function(e) {
+							$(this).hide();
+							$.post("/list/task/chgStatus",
+									{
+										taskId: refId,
+										status: $(this).val()
+									},
+									function(data, textStatus) {
+										if (afterMethod == "refresh") {
+											MyInfoN.browser.refresh();
+										}
+									}, "json")
+						}
+					}
+				});
+			});
+		});
+	}
 });

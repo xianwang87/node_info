@@ -3,6 +3,7 @@ var _ = require("underscore");
 var mysql = require('../common/db/dbmysql').db;
 var taskenum = require('../common/constant/task/enum').TASK_ENUM;
 var dateUtil = require('../common/helper/dateUtil').dateUtil;
+var stringUtil = require('../common/helper/stringUtil').stringUtil;
 var enumUtil = require('../common/helper/enumUtil').enumUtil;
 
 var MyTaskBO = function() {
@@ -10,8 +11,15 @@ var MyTaskBO = function() {
 		id: -1,
 		taskName: "",
 		priority: 1,
-		mydesc: ""
+		mydesc: "",
+		onDate: "",
+		fromTime: "",
+		toTime: ""
 	}
+};
+
+var getHourMinute = function(ftime) {
+	return stringUtil.splitStr(ftime, ":", 0, 2, true);
 };
 
 // just show the panel to add a task
@@ -61,6 +69,9 @@ var editATask = function(req, res) {
 				editBo.taskName = result0.name;
 				editBo.priority = result0.priority;
 				editBo.mydesc = result0.mydesc;
+				editBo.onDate = dateUtil.getOnlyDateStr(result0.ondate);
+				editBo.fromTime = getHourMinute(result0.fromtime);
+				editBo.toTime = getHourMinute(result0.totime);
 			}
 			res.render('list/edit', {editBo: editBo});
 		});
@@ -132,9 +143,10 @@ var getTodos = function(req, res) {
 						"desc": result["mydesc"],
 						"priority": result.priority,
 						"status": enumUtil.getText(result.status, taskenum.TASK_STATUS),
+						"statusCode": result.status,
 						"onDate": dateUtil.getOnlyDateStr(result.ondate),
-						"fromTime": result.fromtime,
-						"toTime": result.totime
+						"fromTime": getHourMinute(result.fromtime),
+						"toTime": getHourMinute(result.totime)
 					});
 				});
 			}
@@ -143,9 +155,18 @@ var getTodos = function(req, res) {
 	);
 };
 
+var chgTaskStatus = function(req, res) {
+	var taskId = req.body.taskId,
+		taskStatus = req.body.status;
+	mysql.query("update my_tasks set status=? where id=?", [taskStatus, taskId], 
+		function(err, results, fields) {
+			res.json({rs: true});
+		});
+};
 
 exports.addNewTask = addNewTask;
 exports.getTodos = getTodos;
 exports.newATask = newATask;
 exports.removeATask = removeATask;
 exports.editATask = editATask;
+exports.chgTaskStatus = chgTaskStatus;

@@ -49,9 +49,28 @@ var getOnlyDateForAWeekStr = function(time) {
 	};
 };
 
+
+var getOnlyHourMinuteStr = function(time, diffTime) {
+	if (diffTime) {
+		time = time - diffTime;
+	}
+	var date = new Date(time);
+	var hour = date.getUTCHours();
+	var minute = date.getUTCMinutes();
+	var fillNumber = function(value) {
+		if (value < 10) {
+			return '0'+value;
+		}
+		return value;
+	};
+	
+	return fillNumber(hour) + ':' + fillNumber(minute);
+};
+
 exports.dateUtil = {
 	getDateStr: getStringKindOfDate,
 	getOnlyDateStr: getOnlyDateStr,
 	getOnlyDateWithDeltaDayStr: getOnlyDateWithDeltaDayStr,
-	getOnlyDateForAWeekStr: getOnlyDateForAWeekStr
+	getOnlyDateForAWeekStr: getOnlyDateForAWeekStr,
+	getOnlyHourMinuteStr: getOnlyHourMinuteStr
 };

@@ -18,7 +18,7 @@ div.task-edit-container
 				label.control-label Date
 				div.controls
 					div#datetimepicker1.input-append.date
-						input.task-date(type="text", size="10", value="", readonly)
+						input.task-date(type="text", size="10", value="#{editBo.onDate}", readonly)
 						span.add-on
 							i.icon-th
 			div.control-group
@@ -28,18 +28,19 @@ div.task-edit-container
 						| Time
 				div.controls.my-task-edit-time-range.hidden
 					div#datetimepicker-time-from.input-append.date
-						input.task-date(type="text", size="10", value="", readonly)
+						input.task-date(type="text", size="10", value="#{editBo.fromTime}", readonly)
 						span.add-on
 							i.icon-calendar
 					span.task-time-from-label To
 					div#datetimepicker-time-to.input-append.date
-						input.task-date(type="text", size="10", value="", readonly)
+						input.task-date(type="text", size="10", value="#{editBo.toTime}", readonly)
 						span.add-on
 							i.icon-calendar
 			div.control-group
 				label.control-label(for="task-desc") Description
 				div.controls
-					textarea#task-description(rows="3", cols="10", placeholder="Task Description", value="#{editBo.mydesc}")
+					textarea#task-description(rows="3", cols="10", placeholder="Task Description")
+						| #{editBo.mydesc}
 			div.control-group.hidden
 				div.submit-button-group
 					button#add-edit-task-submit.btn.btn-middle.btn-primary(type="button") Submit
