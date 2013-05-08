@@ -10,7 +10,7 @@ var debug_flg = true;
 
 exports.loadRoutes = function(app) {
 	//app.get('/', routes.index);
-	app.get('/', lists.getTodos);
+	app.get('/', lists.taskOp.getTodos);
 	app.get('/login', login.login);
 	app.post('/dologin', login.dologin);
 	app.get('/users', user.list);
@@ -36,8 +36,9 @@ var loadSomeSimpleHelperRoutes = function(app) {
 	app.get('/help/bugzilla/host', simpleGetter.bugziallHost)
 };
 var loadTaskAboutRoutes = function(app) {
-	app.post('/list/newATask', lists.newATask);
-	app.post('/addNewTask', lists.addNewTask);
-	app.post('/list/removeATask', lists.removeATask);
-	app.get('/list/items/:status/:datet', lists.getTodos);
+	app.post('/list/newATask', lists.taskOp.newATask);
+	app.post('/addNewTask', lists.taskOp.addNewTask);
+	app.post('/list/removeATask', lists.taskOp.removeATask);
+	app.get('/list/items/:status/:datet', lists.taskOp.getTodos);
+	app.post('/list/editATask', lists.taskOp.editATask);
 };

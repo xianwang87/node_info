@@ -5,10 +5,18 @@ var taskenum = require('../common/constant/task/enum').TASK_ENUM;
 var dateUtil = require('../common/helper/dateUtil').dateUtil;
 var enumUtil = require('../common/helper/enumUtil').enumUtil;
 
+var MyTaskBO = function() {
+	return {
+		id: -1,
+		taskName: "",
+		priority: 1,
+		mydesc: ""
+	}
+};
 
 // just show the panel to add a task
 var newATask = function(req, res) {
-	res.render('list/edit', {});
+	res.render('list/edit', {editBo: MyTaskBO()});
 };
 
 // really create the task in database
@@ -41,6 +49,26 @@ var addNewTask = function(req, res){
 	});
 };
 
+
+var editATask = function(req, res) {
+	var taskId = req.body.taskId;
+	mysql.query("select id, name, mydesc, priority, status, ondate, fromtime, totime from my_tasks where id=?", [taskId], 
+		function(err, results, fields) {
+			var editBo = MyTaskBO();
+			if (results) {
+				console.log(results);
+				var result0 = results[0];
+				console.log(result0);
+				editBo.id = result0.id;
+				editBo.taskName = result0.name;
+				editBo.priority = result0.priority;
+				editBo.mydesc = result0.mydesc;
+			}
+			res.render('list/edit', {editBo: editBo});
+		});
+};
+
+
 var removeATask = function(req, res){
 	var taskId = req.body.taskId;
 	mysql.query("delete from my_tasks where id=?", [taskId], 
@@ -56,6 +84,7 @@ var getTodos = function(req, res) {
 		datet = 'today';
 	}
 	var nav = datet;
+	var curTime = new Date().getTime();
 	var getQuerySentence = function() {
 		var params = [];
 		var sql = "select id, name, mydesc, priority, status, ondate, fromtime, totime from my_tasks";
@@ -74,13 +103,13 @@ var getTodos = function(req, res) {
 			if (datet) {
 				if (datet === 'today') {
 					sql += " and ondate=?";
-					params.push(dateUtil.getOnlyDateStr(new Date().getTime()));
+					params.push(dateUtil.getOnlyDateStr(curTime));
 				} else if (datet === 'tomorrow') {
 					sql += " and ondate=?";
-					params.push(dateUtil.getOnlyDateWithDeltaDayStr(new Date().getTime(), 1));
+					params.push(dateUtil.getOnlyDateWithDeltaDayStr(curTime, 1));
 				} else if (datet === 'thisweek') {
 					sql += " and ondate >= ? and ondate <= ?";
-					var weekRange = dateUtil.getOnlyDateForAWeekStr();
+					var weekRange = dateUtil.getOnlyDateForAWeekStr(curTime);
 					params.push(weekRange.start);
 					params.push(weekRange.end);
 				}
@@ -121,3 +150,4 @@ exports.addNewTask = addNewTask;
 exports.getTodos = getTodos;
 exports.newATask = newATask;
 exports.removeATask = removeATask;
+exports.editATask = editATask;

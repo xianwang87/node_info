@@ -1,10 +1,11 @@
 div.task-edit-container
 	div.task-edit
 		form#add-edit-task.form-horizontal(name="add-edit-task")
+			input(type="hidden", name="taskId", value="#{editBo.id}")
 			div.control-group
 				label.control-label(for="task-name") Name
 				div.controls
-					input#task-name(type="text", placeholder="Task Name")
+					input#task-name(type="text", placeholder="Task Name", value="#{editBo.taskName}")
 			div.control-group
 				label.control-label Priority
 				div.controls
@@ -12,6 +13,7 @@ div.task-edit-container
 						option(value=1) Important
 						option(value=2) Urgency
 						option(value=3) Urgency &amp; Important
+					input#task-priority-val(type="hidden", value="#{editBo.priority}")
 			div.control-group
 				label.control-label Date
 				div.controls
@@ -37,7 +39,7 @@ div.task-edit-container
 			div.control-group
 				label.control-label(for="task-desc") Description
 				div.controls
-					textarea#task-description(rows="3", cols="10", placeholder="Task Description")
+					textarea#task-description(rows="3", cols="10", placeholder="Task Description", value="#{editBo.mydesc}")
 			div.control-group.hidden
 				div.submit-button-group
 					button#add-edit-task-submit.btn.btn-middle.btn-primary(type="button") Submit

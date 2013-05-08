@@ -56,11 +56,14 @@ $(".task-edit-container").ready(function() {
 	});
 	
 	
-	var initTaskName = $("#task-name").val();
-	if (!initTaskName || initTaskName == "") {
+	var blnNewTask = $("input[name=taskId]").val();
+	if (!blnNewTask || blnNewTask < 0) {
 		var curTime = new Date().getTime();
 		$('#datetimepicker1 input').val(MyInfoN.date.getOnlyDateStr(curTime));
 		$('#datetimepicker-time-from input').val(MyInfoN.date.getOnlyHourStr(curTime));
 		$('#datetimepicker-time-to input').val(MyInfoN.date.getOnlyHourStr(curTime, 1));
 	}
+	
+	var priorityVal = $("#task-priority-val").val() || 0;
+	$("#task-priority").val(priorityVal);
 });

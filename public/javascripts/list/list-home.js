@@ -42,19 +42,39 @@ $(function() {
 	});
 	
 	
-	var removeACertainTask = function(e) {
-		var id = $(this).parents(".task-op-items").attr("data-el-id");
-		console.log("id::" + id);
-		$.post('/list/removeATask', 
-				{taskId: id},
-				function(data, textStatus) {
-					MyInfoN.browser.refresh();
-				}, 'json');
+	var removeACertainTask = function(id) {
+		return function(e) {
+			$.post('/list/removeATask', 
+					{taskId: id},
+					function(data, textStatus) {
+						MyInfoN.browser.refresh();
+					}, 'json');
+		};
+	};
+	var editACertainTask = function(id) {
+		console.log("id::"+id);
+		return function(e) {
+			MyInfoN.ModalIt({
+				url: "/list/editATask",
+				args: {
+					taskId: id
+				},
+				title: "Edit Task",
+				width: 650,
+				saveFunc: function(e) {
+					//$("#add-edit-task-submit").click();
+					MyInfoN.dlgModal.hide();
+				}
+			});
+		};
 	};
 	$(".table-tasks .task-op-items ul li").each(function() {
 		var $this = $(this);
+		var id = $this.parents(".task-op-items").attr("data-el-id");
 		if ($this.hasClass("icon-remove")) {
-			$this.click(removeACertainTask);
+			$this.click(removeACertainTask(id));
+		} else if ($this.hasClass("icon-edit")) {
+			$this.click(editACertainTask(id));
 		}
 	});
 	
