@@ -1,0 +1,25 @@
+div.form-edit-container
+	div.form-edit
+		form#add-edit-work.form-horizontal(name="add-edit-work")
+			input(type="hidden", name="workId", value="#{editBo.id}")
+			div.control-group
+				label.control-label(for="work-title") Title
+				div.controls
+					input#work-title(type="text", size="22", placeholder="Work Title", value="#{editBo.title}")
+			div.control-group
+				label.control-label Date
+				div.controls
+					div#datetimepicker1.input-append.date
+						input.task-date(type="text", size="10", value="#{editBo.onDate}", readonly)
+						span.add-on
+							i.icon-th
+			div.control-group
+				label.control-label(for="work-description") Description
+				div.controls
+					textarea#work-description(rows="5", cols="20", placeholder="Work Description")
+						| #{editBo.mydesc}
+			div.control-group.hidden
+				div.submit-button-group
+					button#add-edit-work-submit.btn.btn-middle.btn-primary(type="button") Submit
+					
+script(type='text/javascript', src="/javascripts/mywork/work-json-edit.js")

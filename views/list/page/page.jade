@@ -1,0 +1,45 @@
+mixin list_todo_items(items)
+	if items.length < 1
+		div.alert.alert-success.my-task-group-no-data No items were found!
+	else
+		table.table.table-tasks
+			thead
+				tr
+					th.task-order #
+					th.task-priority Priority
+					th Task
+					th.task-date Date
+					th.task-status Status
+			tbody
+				each item, i in items
+					tr.first-row(name="row-id-#{item.id}")
+						td.task-number-mark(rowspan="2", status-mark="a#{item.statusCode}") #{i}
+						td(click-modify="task_priority", click-modify-after="refresh", click-modify-type="select", 
+							refer-id="#{item.id}", task-status-code="#{item.priorityCode}") #{item.priority}
+						td #{item.name}
+						td #{item.onDate}
+							span.desc-time (#{item.fromTime} - #{item.toTime})
+						td(click-modify="task_status", click-modify-after="refresh", click-modify-type="select", 
+							refer-id="#{item.id}", task-status-code="#{item.statusCode}") #{item.status}
+					tr.second-row(name="row-id-#{item.id}")
+						td(colspan="4") 
+							div.desc-content
+								!{item.desc}
+							div.task-op-items(data-el-id="#{item.id}")
+								ul.inline
+									li.icon-edit
+									li.icon-remove
+									li.icon-th
+
+mixin operation_bar_on_task
+	div.task-op-btn-group
+		button.btn.btn-mini.btn-primary.btn-add(type="button") Add
+
+mixin list_page_footer_script
+	script(type='text/javascript', src="/javascripts/tinymce/tinymce.min.js")
+	script(type='text/javascript', src="/javascripts/common/richtext.js")
+	script(type='text/javascript', src="/javascripts/layoutabout/commonApp.js")
+	script(type='text/javascript', src="/javascripts/list/list-home.js")
+	
+mixin list_page_header_css
+	link(rel='stylesheet', href='/stylesheets/task/taskcommon.css')

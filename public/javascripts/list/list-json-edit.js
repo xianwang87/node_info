@@ -64,8 +64,8 @@ $(".task-edit-container").ready(function() {
 		$('#datetimepicker-time-to input').val(MyInfoN.date.getOnlyHourStr(curTime, 1));
 	}
 	
-	var priorityVal = $("#task-priority-val").val() || 0;
-	$("#task-priority").val(priorityVal);
+	//var priorityVal = $("#task-priority-val").val() || 0;
+	//$("#task-priority").val(priorityVal);
 	
 	MyInfoN.RT.TinyMCE.initBase("#task-description");
 });

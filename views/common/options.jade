@@ -1,0 +1,6 @@
+mixin select_option_list(name, selValue)
+	each item, i in mylist[name]
+		if (typeof selValue !== 'undefined' && item.value == selValue)
+			option(value="#{item.value}", selected) #{item.text}
+		else
+			option(value="#{item.value}") #{item.text}

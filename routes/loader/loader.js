@@ -21,8 +21,7 @@ exports.loadRoutes = function(app) {
 	app.get('/resource/:resid/:docid', resources.getCertainDoc);
 	app.get('/resource/:resid', resources.getCertainResource);
 	
-	
-	app.get('/myworkDone', mywork.myworkHome);
+	loadMyWorkAboutRoutes(app);
 	
 	loadSomeSimpleHelperRoutes(app);
 	
@@ -42,6 +41,14 @@ var loadTaskAboutRoutes = function(app) {
 	app.post('/addNewTask', lists.taskOp.addNewTask);
 	app.post('/list/removeATask', lists.taskOp.removeATask);
 	app.get('/list/items/:status/:datet', lists.taskOp.getTodos);
+	app.get('/list/pitems/:paging/:page', lists.taskOp.getTodos);
 	app.post('/list/editATask', lists.taskOp.editATask);
-	app.post('/list/task/chgStatus', lists.taskOp.chgTaskStatus)
+	//app.post('/list/task/chgStatus', lists.taskOp.chgTaskStatus);
+	//app.post('/list/task/chgPriority', lists.taskOp.chgTaskPriority);
+	app.post('/list/task/modifysingle/:modifyType', lists.taskOp.commonModifySingle);
+};
+var loadMyWorkAboutRoutes = function(app) {
+	app.get('/myworkDone', mywork.myworkHome);
+	app.post('/mywork/newAWork', mywork.newAWork);
+	app.post('/mywork/addNewWork', mywork.addNewWork);
 };

@@ -11,8 +11,9 @@
   background-color: #fcf8e3;
 }
 .task-op-btn-group {
-  text-align: left;
-  margin-left: 20px;
+  text-align: right;
+  margin-right: 0px;
+  margin-bottom: 3px;
 }
 .table tr.second-row td {
   border-top: none;
@@ -59,4 +60,34 @@ th.task-status {
 }
 .task-op-items ul li {
   cursor: pointer;
+}
+.my-task-grounp-title {
+  margin-bottom: 0px;
+}
+.my-task-grounp-title li.active {
+  font-weight: bold;
+  font-size: 13px;
+}
+.my-task-grounp-title.unfinished li.active {
+  color: #b94a48;
+}
+.my-task-grounp-title.finished li.active {
+  color: #468847;
+}
+.my-task-grounp-title[dataType=all] {
+  margin-top: 50px;
+}
+.task-number-mark {
+  background-repeat: no-repeat;
+  background-position-y: 5px;
+}
+.task-number-mark[status-mark=a1] {
+  background-image: url("/images/icon/check.png");
+}
+.task-number-mark[status-mark=a2] {
+  background-image: url("/images/icon/progress_bar.png");
+  background-position-y: 18px;
+}
+.task-number-mark[status-mark=a3] {
+  background-image: url("/images/icon/block.png");
 }

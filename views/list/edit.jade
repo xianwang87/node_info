@@ -1,3 +1,5 @@
+include ../common/options
+
 div.task-edit-container
 	div.task-edit
 		form#add-edit-task.form-horizontal(name="add-edit-task")
@@ -10,9 +12,7 @@ div.task-edit-container
 				label.control-label Priority
 				div.controls
 					select#task-priority.span3
-						option(value=1) Important
-						option(value=2) Urgency
-						option(value=3) Urgency &amp; Important
+						+select_option_list('task_priority', '#{editBo.priority}')
 					input#task-priority-val(type="hidden", value="#{editBo.priority}")
 			div.control-group
 				label.control-label Date

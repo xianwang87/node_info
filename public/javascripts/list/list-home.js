@@ -1,22 +1,5 @@
 $(function() {
 	
-	$("#add-edit-task-submit").click(function(e) {
-		$.post("/addNewTask",
-				{
-					name: $("#task-name").val(),
-					priority: $("#task-priority").val(), 
-					desc: $("#task-description").val(),
-					onDate: $("#datetimepicker1 input").val(),
-					ftime: $("#datetimepicker-time-from input").val(),
-					ttime: $("#datetimepicker-time-to input").val()
-				},
-				function(data, textStatus) {
-					MyInfoN.dlgModal.hide();
-					MyInfoN.browser.refresh();
-				},
-				"json");
-	});
-	
 	$(".task-op-btn-group .btn-add").click(function(e) {
 		MyInfoN.ModalIt({
 			url: "/list/newATask",
@@ -100,19 +83,20 @@ $(function() {
 			$("[click-modify]").dblclick(function(e) {
 				var $this = $(this),
 					refId = $this.attr("refer-id"),
+					modifyType = $this.attr("click-modify");
 					afterMethod = $this.attr("click-modify-after"),
 					statusCode = $this.attr("task-status-code");
-				MyInfoN.widget.helper.showWidget("select", "task_status", $this, {
+				MyInfoN.widget.helper.showWidget("select", modifyType, $this, {
 					whenShow: function($el) {
 						$el.val(statusCode);
 					},
 					events: {
 						change: function(e) {
 							$(this).hide();
-							$.post("/list/task/chgStatus",
+							$.post("/list/task/modifysingle/"+modifyType,
 									{
 										taskId: refId,
-										status: $(this).val()
+										value: $(this).val()
 									},
 									function(data, textStatus) {
 										if (afterMethod == "refresh") {
@@ -125,4 +109,13 @@ $(function() {
 			});
 		});
 	}
+	
+	$(".page_container[page_for=task_list] ul li[page_number]").click(function(e) {
+		var $this = $(this);
+		if ($this.hasClass("disabled")) { 
+			return;
+		}
+		var page_number = $this.attr("page_number");
+		window.location.href = "/list/pitems/page/" + page_number;
+	});
 });

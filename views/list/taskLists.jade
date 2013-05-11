@@ -1,0 +1,35 @@
+extends ../layout
+
+include page/page
+include ../common/options
+include ../common/paging
+
+block head-css
+	+list_page_header_css
+
+block content
+	div.span12.my-real-content
+		div.span3.left-nav
+			include nav/leftNav
+		div.span9.my-content
+			+operation_bar_on_task
+
+			if (dataType == "all" || dataType == "unfinished")
+				div.table_a_section
+					ul.breadcrumb.my-task-grounp-title.unfinished
+						li.active Unfinished Tasks
+					+list_todo_items(todos.unfinished)
+			
+			if (dataType == "all" || dataType == "finished")
+				div.table_a_section
+					ul.breadcrumb.my-task-grounp-title.finished(dataType='#{dataType}')
+						li.active Finished Tasks
+					+list_todo_items(todos.finished)
+			
+			if blnPaging
+				div.page_container(page_for="task_list")
+					+list_items_pagination(totalCount, pageSize, curPage)	
+
+block footer-script
+	+list_page_footer_script
+	

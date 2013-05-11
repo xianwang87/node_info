@@ -12,11 +12,6 @@ var myGetter = {
 	}
 };
 
-var DEF_OBJECT = {
-	task_status:  _.sortBy(_.values(taskenum.TASK_STATUS), 
-						function(obj) {return obj.value;})
-};
-
 exports.getter = myGetter;
 exports.getSimpleDef = function(req, res) {
 	var defName = req.params.defName;
@@ -35,4 +30,17 @@ exports.getLisDefs = function(req, res) {
 		}
 	});
 	res.json({list: result});
+};
+
+exports.getSortedDefList = function(defName) {
+	return DEF_OBJECT[defName];
+};
+
+var getSortedListObjects = function(objs) {
+	return _.sortBy(_.values(objs), 
+						function(obj) {return obj.value;});
+};
+var DEF_OBJECT = {
+	task_status:  getSortedListObjects(taskenum.TASK_STATUS),
+	task_priority: getSortedListObjects(taskenum.TASK_PRIORITY)
 };

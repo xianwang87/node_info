@@ -1,0 +1,80 @@
+mixin list_items_pagination(total, pageSize, curPage)
+	total = parseFloat(total)
+	pageSize = parseFloat(pageSize)
+	curPage = parseFloat(curPage)
+	if total > 0
+		totalPages = total/pageSize + ((total%pageSize == 0) ? 0 : 1);
+		
+		startPage = curPage - 2
+		if startPage < 1
+			startPage = 1
+		
+		firstEndPage = curPage + 2
+		
+		blnTooMore = false
+		rightPad = totalPages - curPage
+		if rightPad > 4
+			blnTooMore = true
+		else
+			firstEndPage = totalPages
+			
+		if firstEndPage > totalPages
+			firstEndPage = totalPages
+			
+		prePage = curPage - 1
+		if prePage < 1
+			prePage = 1
+		nextPage = curPage + 1
+		if nextPage > totalPages
+			nextPage = totalPages
+		else if nextPage < 1
+			nextPage = 1
+			
+		div.pagination
+			ul
+				if totalPages > 1 && curPage > 1
+					li.prev(page_number="1")
+						a(href="javascript: void(0);") First
+				else
+					li.prev.disabled(page_number="1")
+						a(href="javascript: void(0);") First
+					
+				if curPage == 1
+					li.prev.disabled(page_number="#{prePage}")
+						a(href="javascript: void(0);") &larr; Prev
+				else
+					li.prev(page_number="#{prePage}")
+						a(href="javascript: void(0);") &larr; Prev
+						
+				- for (var i = startPage; i <= firstEndPage; i++)
+					if i == curPage
+						li.disabled.my_current_page(page_number="#{i}")
+							a(href="javascript: void(0);") #{i}
+					else
+						li(page_number="#{i}")
+							a(href="javascript: void(0);") #{i}
+							
+				if blnTooMore
+					li.disabled
+							a(href="javascript: void(0);") ...
+					- for (var i = totalPages - 1; i <= totalPages; i++)
+						if i == curPage
+							li.disabled.my_current_page(page_number="#{i}")
+								a(href="javascript: void(0);") #{i}
+						else
+							li(page_number="#{i}")
+								a(href="javascript: void(0);") #{i}
+								
+				if curPage == totalPages || totalPages < 2
+					li.next.disabled(page_number="#{nextPage}")
+						a(href="javascript: void(0);") Next &rarr;
+				else
+					li.next(page_number="#{nextPage}")
+						a(href="javascript: void(0);") Next &rarr;
+						
+				if totalPages > 1 && curPage < totalPages
+					li.prev(page_number="#{totalPages}")
+						a(href="javascript: void(0);") Last
+				else
+					li.prev.disabled(page_number="#{totalPages}")
+						a(href="javascript: void(0);") Last

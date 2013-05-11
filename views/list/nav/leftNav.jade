@@ -1,0 +1,20 @@
+input(type="hidden", name="res-left-nav-link", value="#{res_nav_link}")
+div.well
+	ul#task-left-nav-bar.nav.nav-list
+		li.nav-header To-do
+		li#task-all_today-left-link
+			a(href='/list/items/all/today') Today
+		li#task-all_tomorrow-left-link
+			a(href='/list/items/all/tomorrow') Tomorrow
+		li#task-all_thisweek-left-link
+			a(href='/list/items/all/thisweek') This week
+		li.nav-header Not Finished
+		li#task-unfinished_yesterday-left-link
+			a(href='/list/items/unfinished/yesterday') Yesterday
+		li#task-unfinished_last3days-left-link
+			a(href='/list/items/unfinished/last3days') Last 3 days
+		li#task-unfinished_all-left-link
+			a(href='/list/items/unfinished/all') All
+		li.divider
+		li#task-finished_all-left-link
+			a(href='/list/items/finished/all') Finished

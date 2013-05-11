@@ -8,6 +8,9 @@ body {
 .left-nav {
 	margin-left: 0px;
 }
+.my-real-content {
+	margin-left: 0px;
+}
 .task-edit .form-horizontal .control-label {
 	width: 100px;
 	text-align: left;
@@ -43,4 +46,10 @@ a.carousel-control {
 }
 .modal-body {
 	max-height: 550px;
+}
+.my_current_page > a {
+	font-weight: bold;
+}
+.page_container {
+	float: right;
 }
