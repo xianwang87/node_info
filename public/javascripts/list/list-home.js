@@ -46,7 +46,7 @@ $(function() {
 				width: 650,
 				height: 450,
 				saveFunc: function(e) {
-					//$("#add-edit-task-submit").click();
+					$("#add-edit-task-submit").click();
 					MyInfoN.dlgModal.hide();
 				}
 			});

@@ -41,6 +41,7 @@ $(".task-edit-container").ready(function() {
 	$("#add-edit-task-submit").click(function(e) {
 		$.post("/addNewTask",
 				{
+					id: $("input[name=taskId]").val(),
 					name: $("#task-name").val(),
 					priority: $("#task-priority").val(), 
 					desc: tinyMCE.activeEditor.getContent(),

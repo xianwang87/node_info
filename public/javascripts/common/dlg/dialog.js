@@ -6,6 +6,7 @@
 	var showModalDialog = function(html) {
 		$("#myCommonModalDlg .modal-body").html(html);
 		$("#myCommonModalDlg").modal({backdrop: false});
+		$("#myCommonModalDlg").show();
 	};
 	var hideModalDialog = function() {
 		$("#myCommonModalDlg").hide();

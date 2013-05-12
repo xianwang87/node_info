@@ -51,4 +51,6 @@ var loadMyWorkAboutRoutes = function(app) {
 	app.get('/myworkDone', mywork.myworkHome);
 	app.post('/mywork/newAWork', mywork.newAWork);
 	app.post('/mywork/addNewWork', mywork.addNewWork);
+	app.post('/mywork/removeAWork', mywork.removeAWorkItem);
+	app.post('/mywork/editAWork', mywork.editAWorkItem);
 };

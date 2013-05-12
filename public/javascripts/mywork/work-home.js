@@ -11,27 +11,27 @@ $(function() {
 		});
 	});
 	
-	var removeACertainTask = function(id) {
+	var removeACertainWork = function(id) {
 		return function(e) {
-			$.post('/list/removeATask', 
-					{taskId: id},
+			$.post('/mywork/removeAWork', 
+					{workId: id},
 					function(data, textStatus) {
 						MyInfoN.browser.refresh();
 					}, 'json');
 		};
 	};
-	var editACertainTask = function(id) {
+	var editACertainWork = function(id) {
 		return function(e) {
 			MyInfoN.ModalIt({
-				url: "/list/editATask",
+				url: "/mywork/editAWork",
 				args: {
-					taskId: id
+					workId: id
 				},
-				title: "Edit Task",
+				title: "Edit My Work",
 				width: 650,
 				height: 300,
 				saveFunc: function(e) {
-					//$("#add-edit-task-submit").click();
+					$("#add-edit-work-submit").click();
 					MyInfoN.dlgModal.hide();
 				}
 			});
@@ -53,5 +53,40 @@ $(function() {
 		}
 		var page_number = $this.attr("page_number");
 		window.location.href = "/list/pitems/page/" + page_number;
+	});
+	
+	$(".work-date-expand").click(function(e) {
+		var $this = $(this);
+		var $expandEl = $this.find("span.icon-fold");
+		if ($expandEl.hasClass("icon-chevron-down")) {
+			$expandEl.removeClass("icon-chevron-down")
+					.addClass("icon-chevron-right");
+			$this.parents(".single-date-work").find(".work-items").hide();
+		} else {
+			$expandEl.removeClass("icon-chevron-right")
+					.addClass("icon-chevron-down");
+			$this.parents(".single-date-work").find(".work-items").show();
+		}
+	});
+	
+	$(".work-items li").hover(function(e) {
+		$(this).addClass("hover");
+		$(this).find(".item-name-op-group ul").show();
+	}, function(e) {
+		$(this).removeClass("hover");
+		$(this).find(".item-name-op-group ul").hide();
+	});
+	
+	$(".item-name-op-group li").each(function() {
+		var $this = $(this);
+		var id = $this.parents(".item-name-op-group").attr("data-el-id");
+		if ($this.hasClass("icon-remove")) {
+			$this.click(removeACertainWork(id));
+		} else if ($this.hasClass("icon-edit")) {
+			$this.click(editACertainWork(id));
+		}
+	}).click(function(e) {
+		var $this = $(this);
+		
 	});
 });

@@ -3,7 +3,7 @@ mixin list_items_pagination(total, pageSize, curPage)
 	pageSize = parseFloat(pageSize)
 	curPage = parseFloat(curPage)
 	if total > 0
-		totalPages = total/pageSize + ((total%pageSize == 0) ? 0 : 1);
+		totalPages = Math.floor(total/pageSize) + ((total%pageSize == 0) ? 0 : 1);
 		
 		startPage = curPage - 2
 		if startPage < 1
@@ -29,7 +29,7 @@ mixin list_items_pagination(total, pageSize, curPage)
 			nextPage = totalPages
 		else if nextPage < 1
 			nextPage = 1
-			
+		
 		div.pagination
 			ul
 				if totalPages > 1 && curPage > 1

@@ -34,9 +34,7 @@ exports.myworkHome = function(req, res) {
 				});
 			}
 			var groupedItems =_.groupBy(works.items, function(obj) { return obj.onDate; });
-			console.log(groupedItems);
 			var sortedDate = _.sortBy(_.keys(groupedItems), function(key) { return key; });
-			console.log(sortedDate);
 			works.items = [];
 			for (var i = sortedDate.length; i > 0; i--) {
 				works.items.push({
@@ -52,6 +50,7 @@ exports.myworkHome = function(req, res) {
 var MyWorkObj = function() {
 	return {
 		id: -1,
+		onDate: "",
 		title: "",
 		mydesc: ""
 	}
@@ -76,7 +75,8 @@ var dealWithAdditionalOperations = function(text, opName) {
 	}
 };
 exports.addNewWork = function(req, res) {
-	var title = req.body.title,
+	var id = req.body.id,
+		title = req.body.title,
 		mydesc = req.body.desc,
 		onDate = req.body.onDate;
 	var curDate = dateUtil.getDateStr(new Date().getTime());
@@ -97,9 +97,55 @@ exports.addNewWork = function(req, res) {
 		};
 	};
 	
-	var myQuery = getInsertSentence();
-	console.log(myQuery);
+	var getInsertSentenceUpdate = function() {
+		sql = "update my_work_done set title = ?, mydesc = ?, onDate = ?, lastModifyDate = ?"
+					+ " where id = ?";
+		params.push(title);
+		params.push(mydesc);
+		params.push(onDate);
+		params.push(curDate);
+		params.push(id);
+		return {
+			sql: sql,
+			params: params
+		};
+	};
+	
+	var myQuery;
+	if (id > 0) {
+		myQuery = getInsertSentenceUpdate();
+	} else {
+		myQuery = getInsertSentence();
+	}
 	mysql.query(myQuery.sql, myQuery.params, function(err, results, fields) {
 		res.json({rs: true});
 	});
 };
+
+
+var removeAWorkItem = function(req, res){
+	var workId = req.body.workId;
+	mysql.query("delete from my_work_done where id=?", [workId], 
+		function(err, results, fields) {
+			res.json({rs: true});
+		});
+};
+
+var editAWorkItem = function(req, res) {
+	var workId = req.body.workId;
+	mysql.query("select id, title, mydesc, ondate from my_work_done where id=?", [workId], 
+		function(err, results, fields) {
+			var editBo = MyWorkObj();
+			if (results) {
+				var result0 = results[0];
+				editBo.id = result0.id;
+				editBo.title = result0.title;
+				editBo.mydesc = result0.mydesc;
+				editBo.onDate = dateUtil.getOnlyDateStr(result0.ondate);
+			}
+			res.render('mywork/edit', {editBo: editBo});
+		});
+};
+
+exports.removeAWorkItem = removeAWorkItem;
+exports.editAWorkItem = editAWorkItem;

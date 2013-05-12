@@ -13,6 +13,7 @@ $(".form-edit-container #add-edit-work").ready(function() {
 	$("#add-edit-work-submit").click(function(e) {
 		$.post("/mywork/addNewWork",
 				{
+					id: $("input[name=workId]").val(),
 					title: $("#work-title").val(),
 					onDate: $("#datetimepicker1 input").val(),
 					desc: tinyMCE.activeEditor.getContent()

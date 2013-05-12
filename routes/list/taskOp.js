@@ -47,7 +47,8 @@ var newATask = function(req, res) {
 
 // really create the task in database
 var addNewTask = function(req, res){
-	var taskName = req.body.name,
+	var id = req.body.id,
+		taskName = req.body.name,
 		priority = req.body.priority,
 		mydesc = req.body.desc,
 		onDate = req.body.onDate,
@@ -56,21 +57,51 @@ var addNewTask = function(req, res){
 		status = enumUtil.getValue(taskenum.TASK_STATUS.NOT_STARTED);
 	var curDate = dateUtil.getDateStr(new Date().getTime());
 		
-	var encapStr = function(str) {
-		return "'" + str + "'";
-	};
+	var sql = "";
+	var params = [];
 	var getInsertSentence = function() {
-		var sql = "insert into my_tasks(name, mydesc, adddate, lastModifyDate, onDate,"
-					+ " fromTime, toTime, priority, status) values("
-					+ encapStr(taskName) + ", " + encapStr(mydesc) + ", "
-					+ encapStr(curDate) + ", " + encapStr(curDate) + ", "
-					+ encapStr(onDate) + ", " + encapStr(fromTime) + ", "
-					+ encapStr(toTime) + ", " + priority + ", " + status
-					+ ")";
-		return sql;
+		sql = "insert into my_tasks(name, mydesc, adddate, lastModifyDate, onDate,"
+					+ " fromTime, toTime, priority, status) values(?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		params.push(taskName);
+		params.push(mydesc);
+		params.push(curDate);
+		params.push(curDate);
+		params.push(onDate);
+		params.push(fromTime);
+		params.push(toTime);
+		params.push(priority);
+		params.push(status);
+		return {
+			sql: sql,
+			params: params
+		};
 	};
-		
-	mysql.query(getInsertSentence(), function(err, results, fields) {
+	
+	var getInsertSentenceUpdate = function() {
+		sql = "update my_tasks set name=?, mydesc=?, lastModifyDate=?, onDate=?,"
+					+ " fromTime=?, toTime=?, priority=?, status=? where id=?";
+		params.push(taskName);
+		params.push(mydesc);
+		params.push(curDate);
+		params.push(onDate);
+		params.push(fromTime);
+		params.push(toTime);
+		params.push(priority);
+		params.push(status);
+		params.push(id);
+		return {
+			sql: sql,
+			params: params
+		};
+	};
+	
+	var myQuery;
+	if (id > 0) {
+		myQuery = getInsertSentenceUpdate();
+	} else {
+		myQuery = getInsertSentence();
+	}
+	mysql.query(myQuery.sql, myQuery.params, function(err, results, fields) {
 		res.json({rs: true});
 	});
 };

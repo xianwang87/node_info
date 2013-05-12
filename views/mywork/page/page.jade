@@ -5,12 +5,19 @@ mixin list_todo_items(items)
 		each item, i in items
 			div.single-date-work
 				div.work-date
+					div.work-date-expand
+						span.icon-fold.icon-chevron-down
+						span= item.items.length
 					| #{item.mydate}
-				ol
+				ol.work-items
 					each subItem in item.items
 						li
 							div.item-name
 								| !{subItem.titleHtml}
+								div.item-name-op-group(data-el-id="#{subItem.id}")
+									ul.inline
+										li.icon-edit
+										li.icon-remove
 							div.item-desc
 								| !{subItem.desc}
 
