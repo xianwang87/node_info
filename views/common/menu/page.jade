@@ -1,0 +1,12 @@
+mixin add_edit_menu_item_form
+	div.form-edit-container
+	div.form-edit
+		form#add-edit-menu-item.form-horizontal(name="add-edit-menu-item")
+			div.control-group
+				label.control-label(for="menu-item-name") Name
+				div.controls
+					input.menu-item-name(type="text", size="16", maxlength="66", placeholder="Menu Name")
+			div.control-group
+				label.control-label(for="menu-item-desc") Description
+				div.controls
+					textarea.menu-item-desc(rows="5", cols="40", maxlength="128", placeholder="Menu Description")

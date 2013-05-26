@@ -53,3 +53,23 @@ a.carousel-control {
 .page_container {
 	float: right;
 }
+.my_menu_tip {
+	text-align: left;
+	font-size: 11px;
+	font-weigth: normal;
+}
+.my-common-op-btn-group {
+	float: right;
+	margin-left: 5px;
+	margin-bottom: 3px;
+}
+.my-content {
+	margin-left: 0px;
+}
+
+.form-edit .control-group .control-label {
+	width: 100px;
+}
+.form-edit .control-group .controls {
+	margin-left: 110px;
+}

@@ -1,4 +1,6 @@
 var mysql = require('mysql');
+var queues = require('mysql-queues');
+
 var dbconfig = require('../config/config').dbconfig;
 
 var db = mysql.createConnection({
@@ -11,5 +13,8 @@ var db = mysql.createConnection({
     debug : false
 });
 db.connect();
+
+const DEBUG = true;
+queues(db, DEBUG);
 
 exports.db = db;

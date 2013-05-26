@@ -1,0 +1,31 @@
+mixin operation_bar_on_menu_article_list
+	div#my-menu-article-op-btn-group.my-common-op-btn-group
+		form#edit_article(name="edit_article", method="POST", action="/resource/newArticleForMenu")
+			input(type="hidden", name="articleId")
+			input(type="hidden", name="menuId")
+			input(type="hidden", name="menuFullPath")
+			button.btn.btn-mini.btn-primary.btn-add(type="button") Add
+			
+
+mixin menu_article_edit_form
+	div.form-edit-container
+	div.form-edit
+		form#add-edit-menu-article.form-horizontal(name="add-edit-menu-article", method="POST", action="/resource/editMenuArticle")
+			input(type="hidden", name="articleId", value="#{editBo.id}")
+			input(type="hidden", name="menuId", value="#{menuId}")
+			div.control-group
+				label.control-label(for="article-title") Title
+				div.controls
+					input#article-title(name="articleTitle", type="text", size="24", maxlength="128", placeholder="Title", value="#{editBo.title}")
+			div.control-group
+				label.control-label(for="article-summary") Summary
+				div.controls
+					textarea#article-summary(name="articleSummary", rows="5", cols="40", maxlength="256", placeholder="Summary", value="#{editBo.summary}")
+			div.control-group
+				label.control-label(for="article-content") Content
+				div.controls
+					textarea#article-content(name="articleContent", rows="20", cols="40", placeholder="Content")
+						| #{editBo.content}
+			div.control-group
+				div.submit-button-group
+					button#add-edit-menu-article-submit.btn.btn-middle.btn-primary(type="button") Submit

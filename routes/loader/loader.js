@@ -4,7 +4,9 @@ var lists = require('../list/lists')
   	, mywork = require('../mywork/mywork')
   	, login = require('../permission/login')
   	, learn = require('../learning/learn')
-  	, simpleGetter = require('../common/helper/simpleGetter');
+  	, simpleGetter = require('../common/helper/simpleGetter')
+  	, menuOp = require('../menu/menuOp')
+  	, myTest = require('../_test/testDBAbout');
   
 var debug_flg = true;
 
@@ -15,26 +17,29 @@ exports.loadRoutes = function(app) {
 	app.post('/dologin', login.dologin);
 	app.get('/users', user.list);
 	
-	loadTaskAboutRoutes(app);
-	
-	app.get('/resourceHome', resources.resourceHome);
-	app.get('/resource/:resid/:docid', resources.getCertainDoc);
-	app.get('/resource/:resid', resources.getCertainResource);
-	
-	loadMyWorkAboutRoutes(app);
-	
 	loadSomeSimpleHelperRoutes(app);
+	
+	loadTaskAboutRoutes(app);
+	loadMyWorkAboutRoutes(app);
+	loadResourceAboutRoutes(app);
+	loadMenuAboutRoutes(app);
 	
 	if (debug_flg) {
 		app.get('/testMysql', lists.testDB);
 		app.get('/testHttps', learn.testHttpsGet);
+		_loadMyTestAboutRoutes(app);
 	}
 };
 
+var _loadMyTestAboutRoutes = function(app) {
+	app.get('/myTest/dbNoTrans', myTest.testWhenNoTrans);
+	app.get('/myTest/dbWithTrans', myTest.testWhenWithTrans);
+};
+
 var loadSomeSimpleHelperRoutes = function(app) {
-	app.get('/help/bugzilla/host', simpleGetter.getter.bugziallHost)
-	app.get('/get/def/:defName', simpleGetter.getSimpleDef)
-	app.post('/getLisDefs', simpleGetter.getLisDefs)
+	app.get('/help/bugzilla/host', simpleGetter.getter.bugziallHost);
+	app.get('/get/def/:defName', simpleGetter.getSimpleDef);
+	app.post('/getLisDefs', simpleGetter.getLisDefs);
 };
 var loadTaskAboutRoutes = function(app) {
 	app.post('/list/newATask', lists.taskOp.newATask);
@@ -53,4 +58,16 @@ var loadMyWorkAboutRoutes = function(app) {
 	app.post('/mywork/addNewWork', mywork.addNewWork);
 	app.post('/mywork/removeAWork', mywork.removeAWorkItem);
 	app.post('/mywork/editAWork', mywork.editAWorkItem);
+};
+var loadResourceAboutRoutes = function(app) {
+	app.get('/resource', resources.resourceHome);
+	app.get('/resourceHome', resources.resourceHome);
+	app.post('/resource/newArticleForMenu', resources.newArticleForMenu);
+	app.post('/resource/editMenuArticle', resources.editMenuArticle);
+};
+
+var loadMenuAboutRoutes = function(app) {
+	app.post('/menu/context/:menuFor', menuOp.getCommonMenu);
+	app.post('/menu/edit', menuOp.editMenuContext);
+	app.post('/menu/update', menuOp.updateMenuContext);
 };

@@ -1,0 +1,19 @@
+extends ../../layout
+
+include ../page/page
+include op
+
+block head-css
+	+list_page_header_css
+
+block content
+	div.container
+		div.span12.my-real-content
+			div.span12.my-content
+				div.alert.alert-info Add article for menu
+					strong &nbsp; #{menuFullPath}
+				+menu_article_edit_form
+					
+block footer-script
+	+list_page_footer_script
+	script(type='text/javascript', src="/javascripts/resource/resource-menu-article.js")

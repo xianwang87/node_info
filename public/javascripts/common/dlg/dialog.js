@@ -3,10 +3,15 @@
 	root.MyInfoN = root.MyInfoN || {};
 	root.MyInfoN.dlgModal = root.MyInfoN.dlgModal || {};
 	
-	var showModalDialog = function(html) {
+	var showModalDialog = function(html, callback) {
 		$("#myCommonModalDlg .modal-body").html(html);
 		$("#myCommonModalDlg").modal({backdrop: false});
 		$("#myCommonModalDlg").show();
+		if (callback) {
+			$(".modal-body").ready(function(e) {
+				callback();
+			});
+		}
 	};
 	var hideModalDialog = function() {
 		$("#myCommonModalDlg").hide();
@@ -43,10 +48,10 @@
 			$.post(options.url,
 					options.args || {},
 					function(data, textStatus) {
-						showModalDialog(data);
+						showModalDialog(data, options.callback);
 					}, "html");
 		} else {
-			showModalDialog(html);
+			showModalDialog(html, options.callback);
 		}
 	};
 	

@@ -11,6 +11,6 @@
     "stylus": "*",
     "underscore": "*",
     "mysql": "2.0.0-alpha7",
-    "jquery": "1.8.3"
+    "mysql-queues": "1.0.0"
   }
 }

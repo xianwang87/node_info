@@ -1,0 +1,44 @@
+extends ../../layout
+
+include page
+
+block head-css
+	link(rel='stylesheet', href='/stylesheets/jqtree.css')
+	link(rel='stylesheet', href='/stylesheets/menu/menuedit.css')
+	
+block content
+	div.container
+		div.span12.my-real-content
+			div.span12.my-content
+				div.alert.alert-info Edit menu context for #{menuFor}
+				input#menuFor(type='hidden', value='#{menuFor}')
+				input#menuSelected(type='hidden', value='#{menuSelected}')
+				div#menu-edit-container
+				
+		
+		div#context-menu-container
+			ul.dropdown-menu
+				li.menu-add-after
+					a Add after
+				li.menu-add-before
+					a Add before
+				li.menu-add-parent
+					a Add parent
+				li.menu-add-child
+					a Add Child
+				li.menu-add-update
+					a Update
+				li.menu-add-remove
+					a Remove
+					
+		button.btn.btn-middle.btn-primary.btn-add.btn-my-submit(type="button") Submit
+		
+		div.hidden
+			div#my-menu-edit-form-container
+				+add_edit_menu_item_form		
+		
+block footer-script
+	script(type='text/javascript', src="/javascripts/tree.jquery.js")
+	script(type='text/javascript', src="/javascripts/common/form/form.js")
+	script(type='text/javascript', src="/javascripts/layoutabout/commonApp.js")
+	script(type='text/javascript', src="/javascripts/common/menu/menu-edit.js")
