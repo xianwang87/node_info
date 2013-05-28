@@ -34,6 +34,8 @@ exports.loadRoutes = function(app) {
 var _loadMyTestAboutRoutes = function(app) {
 	app.get('/myTest/dbNoTrans', myTest.testWhenNoTrans);
 	app.get('/myTest/dbWithTrans', myTest.testWhenWithTrans);
+	var pgTest = require('../_test/testPostgres');
+	app.get('/myTest/postgres1', pgTest.testPgFirst);
 };
 
 var loadSomeSimpleHelperRoutes = function(app) {

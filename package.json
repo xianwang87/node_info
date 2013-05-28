@@ -11,6 +11,7 @@
     "stylus": "*",
     "underscore": "*",
     "mysql": "2.0.0-alpha7",
-    "mysql-queues": "1.0.0"
+    "mysql-queues": "1.0.0",
+    "pg": "1.1.2"
   }
 }
