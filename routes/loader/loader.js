@@ -63,9 +63,11 @@ var loadMyWorkAboutRoutes = function(app) {
 };
 var loadResourceAboutRoutes = function(app) {
 	app.get('/resource', resources.resourceHome);
-	app.get('/resourceHome', resources.resourceHome);
+	app.get('/resourceHome/:listType', resources.resourceHome);
 	app.post('/resource/newArticleForMenu', resources.newArticleForMenu);
 	app.post('/resource/editMenuArticle', resources.editMenuArticle);
+	app.post('/resource/getArticle', resources.resourceHome);
+	app.post('/resource/article/detail', resources.resourceArticleDetail);
 };
 
 var loadMenuAboutRoutes = function(app) {

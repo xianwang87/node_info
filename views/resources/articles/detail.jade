@@ -1,0 +1,19 @@
+extends ../../layout
+
+include ../page/page
+include op
+
+block head-css
+	+list_page_header_css
+
+block content
+	+operation_indicator_menu_about
+	div.container
+		div.span12.my-real-content
+			div.span3.left-nav
+				include ../nav/leftNav
+			div.span9.my-content
+				+menu_article_content_detail
+					
+block footer-script
+	+list_page_footer_script

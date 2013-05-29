@@ -1,3 +1,6 @@
+mixin operation_indicator_menu_about
+	input#inMenuItemValue(type="hidden", value="#{inMenuItem}")
+
 mixin operation_bar_on_menu_article_list
 	div#my-menu-article-op-btn-group.my-common-op-btn-group
 		form#edit_article(name="edit_article", method="POST", action="/resource/newArticleForMenu")
@@ -6,6 +9,27 @@ mixin operation_bar_on_menu_article_list
 			input(type="hidden", name="menuFullPath")
 			button.btn.btn-mini.btn-primary.btn-add(type="button") Add
 			
+
+mixin article_list_type_one
+	div#resource-item-lists
+		if itemLst && itemLst.length > 0
+			each item, idx in itemLst
+				div.single-resource-item
+					div.alert.alert-info.article-title 
+						| #{idx+1} &nbsp; 
+						a.single-title-name(title="#{item.title}", my-article-id="#{item.id}", my-article-more=true) #{item.title}
+						div.article-add-date #{item.addDate}
+					div.article-desc
+						div.article-summary-container
+							div.article-summary #{item.summary}
+								a.article-read-more(title="Read the full article", 
+									my-article-id="#{item.id}", my-article-more=true) more...
+						div.article-author
+							| by &nbsp; #{item.author}
+		else
+			span No items here
+		
+
 
 mixin menu_article_edit_form
 	div.form-edit-container
@@ -29,3 +53,10 @@ mixin menu_article_edit_form
 			div.control-group
 				div.submit-button-group
 					button#add-edit-menu-article-submit.btn.btn-middle.btn-primary(type="button") Submit
+					
+					
+mixin menu_article_content_detail
+	div.article_content_container
+	div	#{article.title}
+	div #{article.summary}
+	div !{article.content}

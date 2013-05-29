@@ -37,3 +37,40 @@ ul.jqtree-tree .jqtree-element {
   margin-top: -3px;
   cursor: pointer;
 }
+#resource-item-lists {
+  margin-top: 40px;
+  padding-left: 15px;
+}
+#resource-item-lists.resource-item-lists-top {
+  margin-top: 10px;
+}
+.article-title {
+  padding: 0 0 0 5px;
+  margin-bottom: 5px;
+}
+.article-add-date {
+  float: right;
+  width: 150px;
+  text-align: right;
+  margin-right: 15px;
+}
+.article-summary {
+  padding-left: 25px;
+}
+.article-summary-container {
+  color: #c09853;
+  font-size: 13px;
+}
+.article-author {
+  text-align: right;
+  margin-right: 15px;
+  color: #b94a48;
+  font-size: 11px;
+}
+.article-read-more {
+  margin-left: 5px;
+  cursor: pointer;
+}
+.single-title-name {
+  cursor: pointer;
+}
