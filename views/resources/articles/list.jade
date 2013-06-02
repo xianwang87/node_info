@@ -2,4 +2,15 @@ include op
 
 +operation_indicator_menu_about
 +operation_bar_on_menu_article_list
-+article_list_type_one
+
+div#resource-item-lists
+	+article_list_type_one
+	
+	
+div#loading.loading 
+	div.alert
+		strong Wait a moment... it's loading!
+div#nomoreresults.loading 
+	div.alert.alert-error
+		strong Sorry, no more results.
+		
