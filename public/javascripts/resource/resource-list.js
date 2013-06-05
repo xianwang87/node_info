@@ -53,9 +53,30 @@ $(function(){
     	if ($els) {
 		    $els.click(function(e) {
 		    	var $this = $(this);
-		    	var menuId = $this.attr("my-article-id");
+		    	var articleId = $this.attr("my-article-id");
 		    	var menuFullPath = getMenuFullPath($treeMenu.tree('getSelectedNode'));
-		    	MyInfoN.form.submit('/resource/article/detail', {menuId: menuId, 
+		    	MyInfoN.form.submit('/resource/article/detail', {menuId: inMenuItem, 
+		    							articleId: articleId,
+		    							menuFullPath: menuFullPath,
+		    							listType: $("input[name='res-left-nav-link']").val()});
+		    });
+	    }
+    };
+    
+    var addCertainArticleEditClick = function($el) {
+    	var $els;
+    	if ($el) {
+    		$els = $el.find("[my-article-edit]");
+    	} else {
+    		$els = $("[my-article-edit]");
+    	}
+    	if ($els) {
+		    $els.click(function(e) {
+		    	var $this = $(this);
+		    	var articleId = $this.attr("my-article-id");
+		    	var menuFullPath = getMenuFullPath($treeMenu.tree('getSelectedNode'));
+		    	MyInfoN.form.submit('/resource/article/edit', {menuId: inMenuItem, 
+		    							articleId: articleId,
 		    							menuFullPath: menuFullPath,
 		    							listType: $("input[name='res-left-nav-link']").val()});
 		    });
@@ -89,7 +110,9 @@ $(function(){
 				$('#resource-item-lists').stopScrollPagination();
 			 }
 			 _.each(elementsLoaded, function(el) {
-			 	addArticleDetailViewClick($(el));
+			 	var $el = $(el);
+			 	addArticleDetailViewClick($el);
+			 	addCertainArticleEditClick($el);
 			 });
 		}
 	});

@@ -68,6 +68,8 @@ var loadResourceAboutRoutes = function(app) {
 	app.post('/resource/editMenuArticle', resources.editMenuArticle);
 	app.post('/resource/getArticle', resources.resourceHome);
 	app.post('/resource/article/detail', resources.resourceArticleDetail);
+	// just goto edit page, not really update in DB
+	app.post('/resource/article/edit', resources.editArticleForMenu);
 };
 
 var loadMenuAboutRoutes = function(app) {

@@ -38,7 +38,7 @@ ul.jqtree-tree .jqtree-element {
   cursor: pointer;
 }
 #resource-item-lists {
-  margin-top: 40px;
+  margin-top: 45px;
   padding-left: 15px;
 }
 #resource-item-lists.resource-item-lists-top {
@@ -47,12 +47,14 @@ ul.jqtree-tree .jqtree-element {
 .article-title {
   padding: 0 0 0 5px;
   margin-bottom: 5px;
+  height: 20px;
 }
 .article-add-date {
   float: right;
   width: 150px;
   text-align: right;
   margin-right: 15px;
+  display: inline-block;
 }
 .article-summary {
   padding-left: 25px;
@@ -70,6 +72,11 @@ ul.jqtree-tree .jqtree-element {
 .article-read-more {
   margin-left: 5px;
   cursor: pointer;
+}
+.article-more-operations {
+  margin-left: 10px;
+  cursor: pointer;
+  display: inline-block;
 }
 .single-title-name {
   cursor: pointer;

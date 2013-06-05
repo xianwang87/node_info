@@ -19,14 +19,19 @@ mixin article_list_type_one
 				div.alert.alert-info.article-title 
 					| &nbsp; 
 					a.single-title-name(title="#{item.title}", my-article-id="#{item.id}", my-article-more=true) #{item.title}
+					div.article-more-operations
+						ul.inline
+							li.icon-edit(title="Edit #{item.title}", 
+								my-article-id="#{item.id}", my-article-edit=true)
 					div.article-add-date #{item.addDate}
 				div.article-desc
 					div.article-summary-container
 						div.article-summary #{item.summary}
 							a.article-read-more(title="Read the full article", 
 								my-article-id="#{item.id}", my-article-more=true) more...
-					div.article-author
-						| by &nbsp; #{item.author}
+					if item.author
+						div.article-author
+							| by &nbsp; #{item.author}
 		
 
 
@@ -44,7 +49,8 @@ mixin menu_article_edit_form
 			div.control-group
 				label.control-label(for="article-summary") Summary
 				div.controls
-					textarea#article-summary(name="articleSummary", rows="5", cols="40", maxlength="256", placeholder="Summary", value="#{editBo.summary}")
+					textarea#article-summary(name="articleSummary", rows="5", cols="40", maxlength="256", placeholder="Summary")
+						| #{editBo.summary}
 			div.control-group
 				label.control-label(for="article-content") Content
 				div.controls

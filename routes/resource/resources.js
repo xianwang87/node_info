@@ -144,19 +144,20 @@ var getReturnListPage = function(req, res, options) {
 };
 
 //and user support later
-var getCertainArticleQuery = function(menuId) {
+var getCertainArticleQuery = function(articleId) {
 	var sql = "select id, title, summary, content, author, addDate from my_articles where id=?";
-	var params = [menuId];
+	var params = [articleId];
 	return {
 		sql: sql,
 		params: params
 	};
 };
 var resourceArticleDetail = function(req, res) {
-	var menuId = req.body.menuId,
+	var articleId = req.body.articleId,
+		menuId = req.body.menuId,
 		menuFullPath = req.body.menuFullPath,
 		listType = req.body.listType;
-	var myQuery = getCertainArticleQuery(menuId);
+	var myQuery = getCertainArticleQuery(articleId);
 	mysql.query(myQuery.sql, myQuery.params, function(err, results, fields) {
 		if (err) {
 			res.render('resources/articles/detail', { title: 'Resources Home', 
@@ -206,13 +207,50 @@ var newArticleForMenu = function(req, res) {
 		menuFullPath = req.body.menuFullPath,
 		listType = req.body.listType;
 	res.render('resources/articles/edit', { title: 'Resources Home', top_link: 'resources', 
-					res_nav_link: 'remind', editBo: MyArticleObject(),
+					res_nav_link: '--none--', editBo: MyArticleObject(),
 					menuId: menuId,
 					listType: listType,
 					menuFullPath: menuFullPath});
 };
-exports.newArticleForMenu = newArticleForMenu;
 
+var editArticleForMenu = function(req, res) {
+	var articleId = req.body.articleId,
+		menuId = req.body.menuId,
+		menuFullPath = req.body.menuFullPath,
+		listType = req.body.listType;
+	
+	var myQuery = getCertainArticleQuery(articleId);
+	mysql.query(myQuery.sql, myQuery.params, function(err, results, fields) {
+		if (err) {
+			res.render('resources/articles/edit', { title: 'Resources Home', 
+											top_link: 'resources', 
+											res_nav_link: '--none--', 
+											menuId: menuId,
+											menuFullPath: menuFullPath,
+											listType: listType,
+											editBo: MyArticleObject(),
+											errMsg: err});
+		} else {
+			var article = MyArticleObject();
+			if (results && results.length > 0) {
+				var result = results[0];
+				article.id = result.id;
+				article.title = result.title;
+				article.summary = result.summary;
+				article.content = result.content;
+				article.author = result.author;
+				article.addDate = dateUtil.getOnlyDateStr(result.addDate);
+			}
+			res.render('resources/articles/edit', { title: 'Resources Home', 
+											top_link: 'resources', 
+											res_nav_link: '--none--', 
+											menuId: menuId,
+											menuFullPath: menuFullPath,
+											listType: listType,
+											editBo: article});
+		}
+	});
+};
 
 var createOrEditMenuArticle = function(req, res) {
 	var articleId = req.body.articleId,
@@ -292,3 +330,5 @@ var createOrEditMenuArticle = function(req, res) {
 exports.resourceHome = resourceHome;
 exports.editMenuArticle = createOrEditMenuArticle;
 exports.resourceArticleDetail = resourceArticleDetail;
+exports.newArticleForMenu = newArticleForMenu;
+exports.editArticleForMenu = editArticleForMenu;
