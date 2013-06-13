@@ -1,0 +1,29 @@
+div.form-edit-container
+	div.form-edit
+		form#add-edit-tool.form-horizontal(name="add-edit-tool", enctype="multipart/form-data", action="/mytool/addANewTool", method="post")
+			input(type="hidden", name="toolId", value="#{editBo.id}")
+			div.control-group
+				label.control-label(for="tool-name") Name
+				div.controls
+					input#tool-name(name="toolName", type="text", size="22", placeholder="Tool Name", value="#{editBo.name}")
+			div.control-group
+				label.control-label(for="tool-description") Description
+				div.controls
+					textarea#tool-description(name="toolDesc", rows="5", cols="20", placeholder="Tool Description")
+						| #{editBo.mydesc}
+			div.control-group
+				label.control-label Type
+				div.controls
+					label.checkbox
+						input#tool-type(type="checkbox", my-type="html")
+						| HTML
+				input(type="hidden", name="toolType")
+			div.control-group
+				label.control-label File
+				div.controls
+					input(type="file", name="toolFile")
+			div.control-group.hidden
+				div.submit-button-group
+					button#add-edit-tool-submit.btn.btn-middle.btn-primary(type="submit") Submit
+					
+script(type='text/javascript', src="/javascripts/mytool/tool-json-edit.js")

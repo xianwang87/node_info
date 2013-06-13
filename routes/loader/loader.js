@@ -6,7 +6,8 @@ var lists = require('../list/lists')
   	, learn = require('../learning/learn')
   	, simpleGetter = require('../common/helper/simpleGetter')
   	, menuOp = require('../menu/menuOp')
-  	, myTest = require('../_test/testDBAbout');
+  	, myTest = require('../_test/testDBAbout')
+  	, fileHandler = require('../tools/tool/fileHandle');
   
 var debug_flg = true;
 
@@ -23,6 +24,7 @@ exports.loadRoutes = function(app) {
 	loadMyWorkAboutRoutes(app);
 	loadResourceAboutRoutes(app);
 	loadMenuAboutRoutes(app);
+	loadToolsAboutRoutes(app);
 	
 	if (debug_flg) {
 		app.get('/testMysql', lists.testDB);
@@ -76,4 +78,12 @@ var loadMenuAboutRoutes = function(app) {
 	app.post('/menu/context/:menuFor', menuOp.getCommonMenu);
 	app.post('/menu/edit', menuOp.editMenuContext);
 	app.post('/menu/update', menuOp.updateMenuContext);
+};
+
+var loadToolsAboutRoutes = function(app) {
+	//fileHandler
+	app.get('/myTools', fileHandler.toolsHome);
+	app.get('/mytool/kind/:toolType', fileHandler.startFileUpload);
+	app.post('/mytool/newATool', fileHandler.newATool);
+	app.post('/mytool/addANewTool', fileHandler.fileUpload);
 };

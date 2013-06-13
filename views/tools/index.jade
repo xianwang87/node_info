@@ -1,0 +1,19 @@
+extends ../layout
+
+include page/page
+
+block head-css
+	+list_page_header_css
+
+block content
+	div.container
+		div.span12.my-real-content
+			div.span3.left-nav
+				include nav/leftNav
+			div.span9.my-content
+				+operation_bar_on_task
+				div.items-container
+					+list_tool_items(tools.items)
+				
+block footer-script
+	+list_page_footer_script
