@@ -4,3 +4,4 @@ views/resources/remind
 views/resources/mydate
 .project
 ./routes/common/config/config.js
+/uploads

@@ -4,6 +4,7 @@ create table my_tools (
 	name varchar(128) not null,
 	oriName varchar(128),
 	mydesc varchar(256),
+	fileType varchar(32),
 	filePath varchar(256),
 	author int(10),
 	addDate datetime,
