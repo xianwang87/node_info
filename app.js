@@ -13,7 +13,7 @@ var express = require('express')
 
 var app = express();
 var MY_CONSTANTS = {
-	uploadPath: __dirname + '/uploads'
+	uploadPath: path.join(__dirname, 'uploads')
 };
 
 app.configure(function(){
@@ -29,6 +29,7 @@ app.configure(function(){
   
   app.use(require('stylus').middleware(__dirname + '/public'));
   app.use(express.static(path.join(__dirname, 'public')));
+  app.use('/upload', express.static(MY_CONSTANTS.uploadPath));
   app.use(express.methodOverride());
   //app.use(checkuser.checkLogin());
   

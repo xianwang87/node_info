@@ -12,6 +12,7 @@
     "underscore": "*",
     "mysql": "2.0.0-alpha7",
     "mysql-queues": "1.0.0",
-    "pg": "1.1.2"
+    "pg": "1.1.2",
+    "unzip": "0.1.7"
   }
 }

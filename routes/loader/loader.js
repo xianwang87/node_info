@@ -38,6 +38,9 @@ var _loadMyTestAboutRoutes = function(app) {
 	app.get('/myTest/dbWithTrans', myTest.testWhenWithTrans);
 	var pgTest = require('../_test/testPostgres');
 	app.get('/myTest/postgres1', pgTest.testPgFirst);
+	var fileTest1 = require('../_test/testHtmlInOtherFolder');
+	app.get('/myTest/file/otherFolder1', fileTest1.serveUploadedHtml);
+	app.get('/myTest/file/unzip1', fileTest1.testUpzipZipFile);
 };
 
 var loadSomeSimpleHelperRoutes = function(app) {
