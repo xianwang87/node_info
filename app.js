@@ -12,9 +12,7 @@ var express = require('express')
   , checkuser = require('./routes/common/middleware/checkuser');
 
 var app = express();
-var MY_CONSTANTS = {
-	uploadPath: path.join(__dirname, 'uploads')
-};
+var MY_CONSTANTS= require("./gconfig").MY_CONSTANTS;
 
 app.configure(function(){
   app.set('port', process.env.PORT || 3000);

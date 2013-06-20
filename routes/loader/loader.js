@@ -41,6 +41,8 @@ var _loadMyTestAboutRoutes = function(app) {
 	var fileTest1 = require('../_test/testHtmlInOtherFolder');
 	app.get('/myTest/file/otherFolder1', fileTest1.serveUploadedHtml);
 	app.get('/myTest/file/unzip1', fileTest1.testUpzipZipFile);
+	app.get('/myTest/file/type1', fileTest1.testFileTypeDetection);
+	app.get('/myTest/dir/walk1', fileTest1.testWalkDirectoryWithFindit);
 };
 
 var loadSomeSimpleHelperRoutes = function(app) {
