@@ -1,8 +1,12 @@
 $(function() {
+	var curPageType = $("#cur_page_curPageType").val();
 	$(".mytool-op-btn-group .btn-add").click(function(e) {
 		MyInfoN.ModalIt({
 			url: "/mytool/newATool",
 			title: "Add New Tool",
+			args: {
+				curPageType: curPageType
+			},
 			width: 650,
 			height: 300,
 			saveFunc: function(e) {
@@ -25,7 +29,8 @@ $(function() {
 			MyInfoN.ModalIt({
 				url: "/mywork/editAWork",
 				args: {
-					workId: id
+					workId: id,
+					curPageType: curPageType
 				},
 				title: "Edit My Work",
 				width: 650,

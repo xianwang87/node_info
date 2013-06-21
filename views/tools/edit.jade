@@ -2,6 +2,7 @@ div.form-edit-container
 	div.form-edit
 		form#add-edit-tool.form-horizontal(name="add-edit-tool", enctype="multipart/form-data", action="/mytool/addANewTool", method="post")
 			input(type="hidden", name="toolId", value="#{editBo.id}")
+			input(type="hidden", name="curPageType", value="#{curPageType}")
 			div.control-group
 				label.control-label(for="tool-name") Name
 				div.controls

@@ -91,4 +91,5 @@ var loadToolsAboutRoutes = function(app) {
 	app.get('/mytool/kind/:toolType', fileHandler.startFileUpload);
 	app.post('/mytool/newATool', fileHandler.newATool);
 	app.post('/mytool/addANewTool', fileHandler.fileUpload);
+	app.get('/mytool/html/rdetail/:toolId', fileHandler.renderUploadedHtmlFile);
 };

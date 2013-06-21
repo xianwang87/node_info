@@ -3,7 +3,26 @@ mixin list_tool_items(items)
 		div.alert.alert-success.my-tool-group-no-data No items were found!
 	else
 		each item, i in items
-			| hello
+			div.single-common1-item
+				div.alert.alert-info.single-common1-item-title 
+					| &nbsp; 
+					a.single-common1-item-title-name(title="#{item.name}"
+										, my-tool-id="#{item.id}"
+										, my-tool-more=true
+										, href='/mytool/html/rdetail/#{item.id}'
+										, target='_blank'
+										) #{item.name}
+					div.single-common1-item-more-operations
+						ul.inline
+							li.icon-edit(title="Edit #{item.name}", 
+								my-tool-id="#{item.id}", my-tool-edit=true)
+					div.single-common1-item-add-date #{item.addDate}
+				div.single-common1-item-desc
+					div.single-common1-item-summary-container
+						div.single-common1-item-summary #{item.mydesc}
+					if item.author
+						div.single-common1-item-author
+							| by &nbsp; #{item.author}
 
 mixin operation_bar_on_task
 	div.mytool-op-btn-group
@@ -14,4 +33,5 @@ mixin list_page_footer_script
 	script(type='text/javascript', src="/javascripts/mytool/tool-home.js")
 	
 mixin list_page_header_css
+	link(rel='stylesheet', href='/stylesheets/common/item-list-common1.css')
 	link(rel='stylesheet', href='/stylesheets/mytool/mytool.css')

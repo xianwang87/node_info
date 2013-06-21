@@ -5,13 +5,16 @@ var fs = require("fs"),
 var mmm = require('mmmagic'),
 	Magic = mmm.Magic;
 var findit = require("findit");
+var _ = require("underscore");
+var url = require('url');
 
 var MY_ENUM = require('../../common/constant/enum').MY_ENUM,
 	TOP_LINK = MY_ENUM.TOP_LINK;
 var mysql = require('../../common/db/dbmysql').db;
 var dateUtil = require('../../common/helper/dateUtil').dateUtil;
-
-var MY_CONSTANTS= require("../../../gconfig").MY_CONSTANTS;
+var MY_CONSTANTS = require("../../../gconfig").MY_CONSTANTS;
+var pageUtil = require('../../common/helper/pageUtil').pageUtil;
+var pagination = require('../../common/pagination');
 
 var getMyCreateToolQuery = function(options) {
 	var sql = "insert into my_tools (name, oriName, mydesc, fileType, filePath, entryFile, addDate, lastModifyDate) "
@@ -84,7 +87,8 @@ var fileUpload = function(req, res) {
 		toolDesc = req.body.toolDesc,
 		toolType = req.body.toolType,
 		fileName = req.files.toolFile.name;
-		filePath = req.files.toolFile.path;
+		filePath = req.files.toolFile.path,
+		curPageType = req.body.curPageType;
 	var curDate = dateUtil.getDateStr(new Date().getTime());
 	
 	var randomFileName = filePath.split(path.sep);
@@ -123,10 +127,69 @@ var fileUpload = function(req, res) {
 				myQuery = getMyCreateToolQuery(options);
 			//}
 			mysql.query(myQuery.sql, myQuery.params, function(err, results, fields) {
-				res.end("hello, check database now...");
+				res.redirect('/mytool/kind/' + curPageType);
 			});
 		});
 	});
+};
+
+
+var getToolsQuery = function(type, paging) {
+	var sql = "select id, name, oriName, mydesc, fileType, filePath, entryFile, author, addDate, lastModifyDate from my_tools";
+	var filterp = pagination.FilterParams();
+	filterp.add({'fileType': type});
+	var sortp = pagination.SortParams();
+	sortp.add(['addDate', 'desc']);
+	var pagep = null;
+	if (paging) {
+		pagep = pagination.PagingParams();
+		pagep.update(paging);
+	}
+	return pagination.encapMyQuery({
+		myQuery: {
+			sql: sql
+		},
+		filter: filterp,
+		sort: sortp,
+		page: pagep
+	});
+};
+var listToolsPage = function(options, callback) {
+	pageUtil.getRecordCounts(getToolsQuery(options.toolType), function(totalCount) {
+		var myQuery = getToolsQuery(options.toolType, options.paging);
+		mysql.query(myQuery.sql, myQuery.params, function(err, results, fields) {
+			if (err) {
+				callback(false, err);
+			} else {
+				var items = [];
+				if (results && results.length > 0) {
+					_.each(results, function(result) {
+						items.push({
+							id: result.id,
+							name: result.name,
+							oriName: result.oriName,
+							mydesc: result.mydesc,
+							fileType: result.fileType,
+							//filePath: result.filePath,
+							//entryFile: result.entryFile,
+							hrefFile: getEntryFileURLPath(result.filePath, result.entryFile),
+							author: result.author,
+							addDate: dateUtil.getOnlyDateStr(result.addDate),
+							lastModifyDate: dateUtil.getOnlyDateStr(result.lastModifyDate)
+						});
+					});
+				}
+				callback(true, items);
+			}
+		});
+	});
+};
+var getEntryFileURLPath = function(filePath, entryFile) {
+	var indexFile = filePath;
+	if (entryFile) {
+		indexFile = path.join(indexFile, entryFile);
+	}
+	return indexFile;
 };
 
 var MyToolObj = function() {
@@ -138,25 +201,69 @@ var MyToolObj = function() {
 	}
 };
 var startFileUpload = function(req, res) {
-	res.render("tools/index", {
-		title: 'My Tools', 
-		tools: {
-			items: []
-		}, 
-		top_link: TOP_LINK.TOOLS,
-		res_nav_link: 'html'
+	var toolType = req.body.toolType || "html",
+		curPage = req.body.curPage || 1,
+		curPageType = req.params.toolType || "html";
+	var options = {
+		toolType: toolType,
+		paging: {
+			curPage: curPage
+		}
+	};
+	listToolsPage(options, function(status, items) {
+		if (!status) {
+			var errMsg = items;
+		} else {
+			var ritems = items || [];
+		}
+		res.render("tools/index", {
+			title: 'My Tools', 
+			tools: {
+				items: ritems
+			}, 
+			top_link: TOP_LINK.TOOLS,
+			res_nav_link: 'html',
+			curPageType: curPageType
+		});
 	});
 };
 
 var newATool = function(req, res) {
-	res.render("tools/edit", {editBo: new MyToolObj()});
+	res.render("tools/edit", {curPageType: req.body.curPageType || 'html', editBo: new MyToolObj()});
 };
 
 var toolsHome = function(req, res) {
 	res.redirect('/mytool/kind/html');
 };
 
+var _getFullUploadedFilePath = function(filePath) {
+	return path.join(MY_CONSTANTS.uploadPath, filePath);
+};
+var renderUploadedHtmlFile = function(req, res) {
+	var toolId = req.params.toolId;
+	mysql.query("select filePath, entryFile from my_tools where fileType='html' and id=?", [toolId], function(err, results, fields) {
+		if (!err) {
+			if (results && results.length > 0) {
+				var result0 = results[0];
+				var filePath = _getFullUploadedFilePath(getEntryFileURLPath(result0.filePath, result0.entryFile));
+				fs.readFile(filePath, function(err, file) {
+					res.writeHead(200, {
+			            'Content-Type': 'text/html'
+			        });
+			        res.end(file);
+				});
+			} else {
+				res.end("file is not found..");
+			}
+		} else {
+			res.end(err);
+		}
+	});
+};
+
 exports.fileUpload = fileUpload;
 exports.startFileUpload = startFileUpload;
 exports.toolsHome = toolsHome;
 exports.newATool = newATool;
+exports.listToolsPage = listToolsPage;
+exports.renderUploadedHtmlFile = renderUploadedHtmlFile;

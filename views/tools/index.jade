@@ -7,12 +7,13 @@ block head-css
 
 block content
 	div.container
+		input#cur_page_curPageType(type="hidden", value="#{curPageType}")
 		div.span12.my-real-content
 			div.span3.left-nav
 				include nav/leftNav
 			div.span9.my-content
 				+operation_bar_on_task
-				div.items-container
+				div.items-container#my-tool-items-container
 					+list_tool_items(tools.items)
 				
 block footer-script
