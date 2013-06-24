@@ -7,6 +7,7 @@ var mmm = require('mmmagic'),
 var findit = require("findit");
 var _ = require("underscore");
 var url = require('url');
+var rmdir = require('rimraf');
 
 var MY_ENUM = require('../../common/constant/enum').MY_ENUM,
 	TOP_LINK = MY_ENUM.TOP_LINK;
@@ -53,14 +54,14 @@ var walkUploadFileAndModify = function(filePath, callback) {
 	finder.on("file", function(file, stat) {
 		var extName = path.extname(file);
 		if (extName === ".html"
-				|| extName === ".html"
+				|| extName === ".htm"
 				|| extName === ".css") {
 			var parentDir = file.replace(dirPath, "");
 			if (parentDir[0] === path.sep) {
 				parentDir = parentDir.substr(1);
 			}
 			parentDir = parentDir.split(path.sep);
-			var toReplaceStr1 = "upload";
+			var toReplaceStr1 = "/upload";
 			if (parentDir.length > 1) {
 				toReplaceStr1 = path.join(toReplaceStr1, parentDir[0]);
 			}
@@ -114,21 +115,33 @@ var fileUpload = function(req, res) {
 		}
 		if (fileType === "application/zip") {
 			// unzip it, it's a sync method
-			fs.createReadStream(filePath).pipe(unzip.Extract({ path:  filePath}));
+			var unzipper = unzip.Extract({ path:  filePath});
+			unzipper.on("close", function() {
+				_createToolItem(filePath, options, function() {
+					res.redirect('/mytool/kind/' + curPageType);
+				});
+			});
+			fs.createReadStream(filePath).pipe(unzipper);
 			if (toolType === "html") {
 				options.entryFile = "index.html";
 			}
-		}
-		walkUploadFileAndModify(filePath, function(rsStatus, filePath) {
-			var myQuery;
-			//if (id > 0) {
-			//	myQuery = getInsertSentenceUpdate();
-			//} else {
-				myQuery = getMyCreateToolQuery(options);
-			//}
-			mysql.query(myQuery.sql, myQuery.params, function(err, results, fields) {
+		} else {
+			_createToolItem(filePath, options, function() {
 				res.redirect('/mytool/kind/' + curPageType);
 			});
+		}
+	});
+};
+var _createToolItem = function(filePath, options, callback) {
+	walkUploadFileAndModify(filePath, function(rsStatus, filePath) {
+		var myQuery;
+		//if (id > 0) {
+		//	myQuery = getInsertSentenceUpdate();
+		//} else {
+			myQuery = getMyCreateToolQuery(options);
+		//}
+		mysql.query(myQuery.sql, myQuery.params, function(err, results, fields) {
+			callback();
 		});
 	});
 };
@@ -179,7 +192,7 @@ var listToolsPage = function(options, callback) {
 						});
 					});
 				}
-				callback(true, items);
+				callback(true, items, {totalCount: totalCount});
 			}
 		});
 	});
@@ -210,12 +223,13 @@ var startFileUpload = function(req, res) {
 			curPage: curPage
 		}
 	};
-	listToolsPage(options, function(status, items) {
+	listToolsPage(options, function(status, items, _option) {
 		if (!status) {
 			var errMsg = items;
 		} else {
 			var ritems = items || [];
 		}
+		_option = _option || {};
 		res.render("tools/index", {
 			title: 'My Tools', 
 			tools: {
@@ -223,7 +237,10 @@ var startFileUpload = function(req, res) {
 			}, 
 			top_link: TOP_LINK.TOOLS,
 			res_nav_link: 'html',
-			curPageType: curPageType
+			curPageType: curPageType,
+			totalCount: _option.totalCount,
+			pageSize: pageUtil.config.PAGE_SIZE,
+			curPage: curPage
 		});
 	});
 };
@@ -261,9 +278,67 @@ var renderUploadedHtmlFile = function(req, res) {
 	});
 };
 
+var _removeCertainToolInDB = function(toolId, callback) {
+	mysql.query("delete from my_tools where id=?", [toolId], function(err, results, fields) {
+		if (err) {
+			callback(false, err);
+		} else {
+			callback(true);
+		}
+	});
+};
+var _removeCertainTool = function(toolId, callback) {
+	mysql.query("select filePath from my_tools where id=?", [toolId], function(err, results, fields) {
+		if (err) {
+			callback(false, err);
+		} else {
+			var filePath = null;
+			if (results && results.length > 0) {
+				filePath = results[0].filePath;
+			}
+			if (filePath != null) {
+				var _fullPath = _getFullUploadedFilePath(filePath);
+				fs.stat(_fullPath, function(err, status) {
+					if (status.isFile()) {
+						fs.unlink(_fullPath, function(err1) {
+							if (err1) {
+								callback(false, err1);
+							} else {
+								_removeCertainToolInDB(toolId, callback);
+							}
+						});
+					} else {
+						//status.isDirectory()
+						rmdir(_fullPath, function(err1) {
+							if (err1) {
+								callback(false, err1);
+							} else {
+								_removeCertainToolInDB(toolId, callback);
+							}
+						})
+					}
+				});
+			} else {
+				_removeCertainToolInDB(toolId, callback);
+			}
+		}
+	});
+};
+var removeATool = function(req, res) {
+	var toolId = req.body.toolId;
+	_removeCertainTool(toolId, function(status, err) {
+		if (status) {
+			res.json({rs: true});
+		} else {
+			res.json({rs: false, msg: err});
+		}
+	});
+};
+
 exports.fileUpload = fileUpload;
 exports.startFileUpload = startFileUpload;
 exports.toolsHome = toolsHome;
 exports.newATool = newATool;
 exports.listToolsPage = listToolsPage;
 exports.renderUploadedHtmlFile = renderUploadedHtmlFile;
+exports.removeATool = removeATool;

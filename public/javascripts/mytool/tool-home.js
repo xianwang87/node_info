@@ -17,8 +17,8 @@ $(function() {
 	
 	var removeACertainTool = function(id) {
 		return function(e) {
-			$.post('/mywork/removeAWork', 
-					{workId: id},
+			$.post('/mytool/removeATool', 
+					{toolId: id},
 					function(data, textStatus) {
 						MyInfoN.browser.refresh();
 					}, 'json');
@@ -27,16 +27,16 @@ $(function() {
 	var editACertainTool = function(id) {
 		return function(e) {
 			MyInfoN.ModalIt({
-				url: "/mywork/editAWork",
+				url: "/mytool/editATool",
 				args: {
-					workId: id,
+					toolId: id,
 					curPageType: curPageType
 				},
-				title: "Edit My Work",
+				title: "Edit My Tool",
 				width: 650,
 				height: 300,
 				saveFunc: function(e) {
-					$("#add-edit-work-submit").click();
+					$("#add-edit-tool-submit").click();
 					MyInfoN.dlgModal.hide();
 				}
 			});
@@ -51,4 +51,19 @@ $(function() {
 		}
 	});
 	
+	$(".single-common1-item-more-operations ul li").each(function() {
+		var $this = $(this);
+		var id = $this.attr("my-tool-id");
+		if ($this.hasClass("icon-remove")) {
+			$this.click(removeACertainTool(id));
+		} else if ($this.hasClass("icon-edit")) {
+			$this.click(editACertainTool(id));
+		}
+	});
+	
+	$(".single-common1-item-title").hover(function() {
+		$(this).find(".single-common1-item-more-operations").css("display", "inline-block");
+	}, function() {
+		$(this).find(".single-common1-item-more-operations").hide();
+	});
 });

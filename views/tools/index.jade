@@ -1,6 +1,7 @@
 extends ../layout
 
 include page/page
+include ../common/paging
 
 block head-css
 	+list_page_header_css
@@ -15,6 +16,8 @@ block content
 				+operation_bar_on_task
 				div.items-container#my-tool-items-container
 					+list_tool_items(tools.items)
+				div.page_container(page_for="tool_item_list")
+					+list_items_pagination(totalCount, pageSize, curPage)	
 				
 block footer-script
 	+list_page_footer_script

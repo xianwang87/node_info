@@ -1,0 +1,33 @@
+.single-common1-item-title {
+  padding: 0 0 0 5px;
+  margin-bottom: 5px;
+  height: 20px;
+}
+.single-common1-item-add-date {
+  float: right;
+  width: 150px;
+  text-align: right;
+  margin-right: 15px;
+  display: inline-block;
+}
+.single-common1-item-summary {
+  padding-left: 25px;
+}
+.single-common1-item-summary-container {
+  color: #c09853;
+  font-size: 13px;
+}
+.single-common1-item-author {
+  text-align: right;
+  margin-right: 15px;
+  color: #b94a48;
+  font-size: 11px;
+}
+.single-common1-item-more-operations {
+  margin-left: 10px;
+  cursor: pointer;
+  display: none;
+}
+.single-common1-item-title-name {
+  cursor: pointer;
+}

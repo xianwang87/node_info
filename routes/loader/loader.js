@@ -90,6 +90,7 @@ var loadToolsAboutRoutes = function(app) {
 	app.get('/myTools', fileHandler.toolsHome);
 	app.get('/mytool/kind/:toolType', fileHandler.startFileUpload);
 	app.post('/mytool/newATool', fileHandler.newATool);
+	app.post('/mytool/removeATool', fileHandler.removeATool);
 	app.post('/mytool/addANewTool', fileHandler.fileUpload);
 	app.get('/mytool/html/rdetail/:toolId', fileHandler.renderUploadedHtmlFile);
 };

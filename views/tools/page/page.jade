@@ -16,6 +16,8 @@ mixin list_tool_items(items)
 						ul.inline
 							li.icon-edit(title="Edit #{item.name}", 
 								my-tool-id="#{item.id}", my-tool-edit=true)
+							li.icon-remove(title="Remove #{item.name}", 
+								my-tool-id="#{item.id}", my-tool-remove=true)
 					div.single-common1-item-add-date #{item.addDate}
 				div.single-common1-item-desc
 					div.single-common1-item-summary-container
