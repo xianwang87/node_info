@@ -1,7 +1,9 @@
-mixin list_tool_items(items)
+mixin list_tool_items(items, detailHref)
 	if items.length < 1
 		div.alert.alert-success.my-tool-group-no-data No items were found!
 	else
+		if !detailHref
+			detailHref = '/mytool/html/rdetail/'
 		each item, i in items
 			div.single-common1-item
 				div.alert.alert-info.single-common1-item-title 
@@ -9,7 +11,7 @@ mixin list_tool_items(items)
 					a.single-common1-item-title-name(title="#{item.name}"
 										, my-tool-id="#{item.id}"
 										, my-tool-more=true
-										, href='/mytool/html/rdetail/#{item.id}'
+										, href='#{detailHref}#{item.id}'
 										, target='_blank'
 										) #{item.name}
 					div.single-common1-item-more-operations
@@ -25,6 +27,64 @@ mixin list_tool_items(items)
 					if item.author
 						div.single-common1-item-author
 							| by &nbsp; #{item.author}
+							
+mixin select_type_for_boolean(order, paramName, defValue)
+	if defValue == 'true' || defValue === true
+		defValue = true
+	else
+		defValue = false
+	select(for-sql-param=true, param-name="#{paramName}", param-order="#{order}")
+		if defValue == true
+			option(value="true", selected) True
+		else
+			option(value="true") True
+			
+		if defValue == false
+			option(value="false", selected) False
+		else
+			option(value="false") False
+
+mixin input_type_for_common(order, paramName, defValue)
+	if defValue
+		input(for-sql-param=true, param-name="#{paramName}", param-order="#{order}", type="text", size="22", value="#{defValue}")
+	else
+		input(for-sql-param=true, param-name="#{paramName}", param-order="#{order}", type="text", size="22")
+		
+mixin list_db_sql_params(params, sqlId)
+	if params.length > 0
+		div.sql-params-container(param-for-sql-id="#{sqlId}")
+			each param, i in params
+				div.sql-single-param
+					div.sql-single-param-label
+						| #{param.name}
+					div.sql-single-param-content
+						if param.paramType === 'boolean'
+							+select_type_for_boolean(param.myorder, param.name, param.defValue)
+						else
+							+input_type_for_common(param.myorder, param.name, param.defValue)
+
+mixin db_sql_detail_operation(sqlId)
+	div.sql-detail-operation-container
+		button.btn.btn-middle.btn-primary.btn-run-sql(type="button", sql-id="#{sqlId}") Run
+
+mixin db_sql_detail_run_result(sqlId)
+	div.sql-detail-run-result-container(sql-id="#{sqlId}")
+
+mixin db_sql_detail_db_config_item(id, label, value, type)
+	type = type || "text";
+	div.sql-detail-db-conn-item-single
+		div.db-conn-item-label
+			label #{label}
+		div.db-conn-item-content
+			input(type="#{type}", value="#{value}", id="db-conn-#{id}")
+	
+mixin db_sql_detail_run_db_config(dbConfig)
+	div.sql-detail-db-conn-container
+		+db_sql_detail_db_config_item('host', 'Host', dbConfig.host)
+		+db_sql_detail_db_config_item('database', 'Database', dbConfig.database)
+		br
+		+db_sql_detail_db_config_item('user', 'User', dbConfig.user)
+		+db_sql_detail_db_config_item('password', 'Password', dbConfig.password, 'password')
 
 mixin operation_bar_on_task
 	div.mytool-op-btn-group
@@ -32,8 +92,22 @@ mixin operation_bar_on_task
 
 mixin list_page_footer_script
 	script(type='text/javascript', src="/javascripts/layoutabout/commonApp.js")
+	
+mixin list_page_footer_script_tool
 	script(type='text/javascript', src="/javascripts/mytool/tool-home.js")
+
+mixin list_page_footer_script_db_sql
+	script(type='text/javascript', src="/javascripts/mytool/more/dbsql/home.js")
+
+mixin list_page_footer_script_db_sql_detail
+	script(type='text/javascript', src="/javascripts/mytool/more/dbsql/detail.js")
 	
 mixin list_page_header_css
 	link(rel='stylesheet', href='/stylesheets/common/item-list-common1.css')
 	link(rel='stylesheet', href='/stylesheets/mytool/mytool.css')
+	
+mixin list_page_header_css_dlg_form
+	link(rel='stylesheet', href='/stylesheets/common/edit-item-dlg-common1.css')
+	
+mixin list_page_header_css_sql_detail
+	link(rel='stylesheet', href='/stylesheets/mytool/more/dbsql/sqldetail.css')

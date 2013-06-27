@@ -1,24 +1,24 @@
-extends ../layout
+extends ../../layout
 
-include page/page
-include ../common/paging
+include ../page/page
+include ../../common/paging
 
 block head-css
 	+list_page_header_css
+	+list_page_header_css_dlg_form
 
 block content
 	div.container
-		input#cur_page_curPageType(type="hidden", value="#{curPageType}")
 		div.span12.my-real-content
 			div.span3.left-nav
-				include nav/leftNav
+				include ../nav/leftNav
 			div.span9.my-content
 				+operation_bar_on_task
 				div.items-container#my-tool-items-container
-					+list_tool_items(tools.items)
+					+list_tool_items(tools.items, '/mytool/db/sql/detail/')
 				div.page_container(page_for="tool_item_list")
 					+list_items_pagination(totalCount, pageSize, curPage)	
 				
 block footer-script
 	+list_page_footer_script
-	+list_page_footer_script_tool
+	+list_page_footer_script_db_sql

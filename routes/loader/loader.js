@@ -7,7 +7,8 @@ var lists = require('../list/lists')
   	, simpleGetter = require('../common/helper/simpleGetter')
   	, menuOp = require('../menu/menuOp')
   	, myTest = require('../_test/testDBAbout')
-  	, fileHandler = require('../tools/tool/fileHandle');
+  	, fileHandler = require('../tools/tool/fileHandle')
+  	, dbAccessCommon = require('../tools/dbaccess/commonOp');
   
 var debug_flg = true;
 
@@ -93,4 +94,16 @@ var loadToolsAboutRoutes = function(app) {
 	app.post('/mytool/removeATool', fileHandler.removeATool);
 	app.post('/mytool/addANewTool', fileHandler.fileUpload);
 	app.get('/mytool/html/rdetail/:toolId', fileHandler.renderUploadedHtmlFile);
+	
+	loadDBAccessAboutToolRoutes(app);
+};
+
+var loadDBAccessAboutToolRoutes = function(app) {
+	app.get('/mytool/db/kind/:dealType', dbAccessCommon.getSqlListPage);
+	app.post('/mytool/db/sql/add', dbAccessCommon.startToNewASqlSentence);
+	app.post('/mytool/db/sql/edit', dbAccessCommon.startToEditASqlSentence);
+	app.post('/mytool/db/sql/update', dbAccessCommon.UpdateSqlSentence);
+	app.post('/mytool/db/sql/remove', dbAccessCommon.removeCertainSentence);
+	app.get('/mytool/db/sql/detail/:sqlId', dbAccessCommon.getSqlDetailInfo);
+	app.post('/mytool/db/sql/runit', dbAccessCommon.runCertainSqlSentence);
 };

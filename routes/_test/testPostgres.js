@@ -14,10 +14,11 @@ var testPgFirst = function(req, res) {
 		if (!errStatus) {
 			res.end(errMsg);
 		} else {
-			this.query("select * from hm_domain",function(err,results){
+			this.query("select * from hm_domain where id=$1", [2], function(err,results){
 				if (err) {
 					console.log("query error");
-					console.log('GetData Error: ' + error.message);
+					console.log('GetData Error: ' + err.message);
+					res.end(err.message);
 				} else if(results.rowCount > 0) {
 					console.log(results);
 					res.end("hello, result");

@@ -1,0 +1,36 @@
+include ../../common/options
+
+div.form-edit-container
+	div.form-edit
+		form#add-edit-sql.form-horizontal(name="add-edit-sql", action="/mytool/db/sql/update", method="post")
+			input(type="hidden", name="toolId", value="#{editBo.id}")
+			div.control-group
+				label.control-label(for="tool-name") Name
+				div.controls
+					input#tool-name.common_name(name="toolName", type="text", size="22", placeholder="Sql Name", value="#{editBo.name}")
+			div.control-group
+				label.control-label(for="tool-description") Description
+				div.controls
+					textarea#tool-description.common_textarea(name="toolDesc", rows="3", cols="20", placeholder="Sql Description")
+						| #{editBo.mydesc}
+			div.control-group
+				label.control-label(for="tool-description") SQL Content
+				div.controls
+					textarea#tool-sql-content.common_textarea_double_height(name="toolSqlContent", rows="7", cols="20", placeholder="Sql Content")
+						| #{editBo.sql}
+			div.control-group
+				label.control-label(for="tool-db-type") Database
+				div.controls
+					select#tool-db-type(name="toolDbType")
+						+select_option_list1([{
+							value: 'MYSQL',
+							text: 'MySql'
+						}, {
+							value: 'PG',
+							text: 'Postgres'
+						}], editBo.dbType)
+			div.control-group.hidden
+				div.submit-button-group
+					button#add-edit-sql-submit.btn.btn-middle.btn-primary(type="submit") Submit
+					
+script(type='text/javascript', src="/javascripts/mytool/more/dbsql/json-edit.js")

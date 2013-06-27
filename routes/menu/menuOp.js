@@ -104,7 +104,7 @@ var updateMenuContext = function(req, res) {
 				trans.query(myQuery.sql, myQuery.params, function(err, results, fields) {
 					if (err) {
 						blnError = true;
-						trans.rollback;
+						trans.rollback();
 					} else {
 						curLength++;
 						if (curLength == maxParentsLen) {

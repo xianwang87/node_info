@@ -1,0 +1,32 @@
+extends ../../layout
+
+include ../page/page
+include ../../common/paging
+
+block head-css
+	+list_page_header_css
+	+list_page_header_css_sql_detail
+
+block content
+	div.container
+		div.span12.my-real-content
+			div.span12.my-content
+				div.items-container#my-tool-items-container
+					div.sql-detail-run-db-config
+						+db_sql_detail_run_db_config(connDB)
+					div.alert.alert-error.detail-sql-name 
+						div.desc-title-label Name:  
+						div.desc-title-content #{item.name}&nbsp;
+					div.alert.alert-success.detail-sql-desc 
+						div.desc-title-label Description: 
+						div.desc-title-content #{item.mydesc}&nbsp;
+					div.alert.alert-info.detail-sql-content 
+						div.desc-title-label Sql: 
+						div.desc-title-content #{item.sql}&nbsp;
+					+list_db_sql_params(item.params, item.id)
+					+db_sql_detail_operation(item.id)
+					+db_sql_detail_run_result(item.id)
+				
+block footer-script
+	+list_page_footer_script
+	+list_page_footer_script_db_sql_detail
