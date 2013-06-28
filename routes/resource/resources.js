@@ -53,6 +53,9 @@ var getCurPageCount = function(listedItems) {
 	if (listedItems%pageUtil.config.PAGE_SIZE == 0) {
 		result += 1;
 	}
+	if (listedItems > 0 && listedItems <= pageUtil.config.PAGE_SIZE) {
+		result = 2;
+	}
 	return result;
 };
 var resourceHome = function(req, res) {
@@ -66,6 +69,7 @@ var resourceHome = function(req, res) {
 		curPage = getCurPageCount(listItems);
 	}
 	
+	console.log("curPage::" + curPage);
 	getReturnListPage(req, res, {
 		menuId: menuId,
 		listType: listType,

@@ -488,7 +488,6 @@ var runCertainSqlSentence = function(req, res) {
 		sqlId: sqlId,
 		params: params
 	};
-	console.log(req.body.connDB);
 	options.dbConfig = req.body.connDB;
 	_updateDBConnInSession(req, req.body.connDB);
 	_runCertainSqlWithParams(options, function(status, items) {

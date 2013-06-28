@@ -14,13 +14,13 @@ block content
 				div.items-container#my-tool-items-container
 					div.sql-detail-run-db-config
 						+db_sql_detail_run_db_config(connDB)
-					div.alert.alert-error.detail-sql-name 
+					div.alert.alert-error.detail-sql.detail-sql-name 
 						div.desc-title-label Name:  
 						div.desc-title-content #{item.name}&nbsp;
-					div.alert.alert-success.detail-sql-desc 
+					div.alert.alert-success.detail-sql.detail-sql-desc 
 						div.desc-title-label Description: 
 						div.desc-title-content #{item.mydesc}&nbsp;
-					div.alert.alert-info.detail-sql-content 
+					div.alert.alert-info.detail-sql.detail-sql-content 
 						div.desc-title-label Sql: 
 						div.desc-title-content #{item.sql}&nbsp;
 					+list_db_sql_params(item.params, item.id)

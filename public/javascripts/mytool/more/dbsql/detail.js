@@ -1,26 +1,33 @@
 $(function() {	
+	var renderResultTableCommon = function(items) {
+		var fields = _.sortBy(_.keys(items[0]), function(field) { return field; });
+		var html = '<table class="table table-hover">';
+		html += "<thead><tr>";
+		_.each(fields, function(field) {
+			html += "<th>" + field + "</th>";
+		});
+		html += "</tr></thead>";
+		html += "<tbody>";
+		_.each(items, function(item) {
+			html += "<tr>";
+			_.each(fields, function(field) {
+				html += "<td>" + item[field] + "</td>";
+			});
+			html += "</tr>";
+		});
+		html += "</tbody>";
+		return html;
+	};
+	
+	var renderResultTableInverted = function(items) {
+	
+	};
+	
 	var renderResultItems = function(sqlId, items) {
 		var $resultContainer = $(".sql-detail-run-result-container[sql-id=" + sqlId + "]");
-		var fields = [];
 		var html = "";
 		if (items && items.length > 0) {
-			fields = _.sortBy(_.keys(items[0]), function(field) { return field; });
-			html += '<table class="table table-hover">';
-			html += "<thead><tr>";
-			_.each(fields, function(field) {
-				html += "<th>" + field + "</th>";
-			});
-			html += "</tr></thead>";
-			html += "<tbody>";
-			_.each(items, function(item) {
-				html += "<tr>";
-				_.each(fields, function(field) {
-					html += "<td>" + item[field] + "</td>";
-				});
-				html += "</tr>";
-			});
-			html += "</tbody>";
-			_.each()
+			html = renderResultTableCommon(items);
 		}
 		
 		if (!html) {

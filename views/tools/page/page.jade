@@ -80,11 +80,12 @@ mixin db_sql_detail_db_config_item(id, label, value, type)
 	
 mixin db_sql_detail_run_db_config(dbConfig)
 	div.sql-detail-db-conn-container
-		+db_sql_detail_db_config_item('host', 'Host', dbConfig.host)
-		+db_sql_detail_db_config_item('database', 'Database', dbConfig.database)
-		br
-		+db_sql_detail_db_config_item('user', 'User', dbConfig.user)
-		+db_sql_detail_db_config_item('password', 'Password', dbConfig.password, 'password')
+		div
+			+db_sql_detail_db_config_item('host', 'Host', dbConfig.host)
+			+db_sql_detail_db_config_item('database', 'Database', dbConfig.database)
+		div
+			+db_sql_detail_db_config_item('user', 'User', dbConfig.user)
+			+db_sql_detail_db_config_item('password', 'Password', dbConfig.password, 'password')
 
 mixin operation_bar_on_task
 	div.mytool-op-btn-group
