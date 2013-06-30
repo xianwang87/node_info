@@ -4,13 +4,13 @@ var queues = require('mysql-queues');
 var dbconfig = require('../config/config').dbconfig;
 
 var db = mysql.createConnection({
-    host : 'localhost',
-    port : 3306,
+    host : dbconfig.mysql.host,
+    port : dbconfig.mysql.port,
     user : dbconfig.mysql.user,
     password : dbconfig.mysql.password,
     database : dbconfig.mysql.database,
-    charset : 'UTF8',
-    debug : false
+    charset : dbconfig.mysql.charset,
+    debug : dbconfig.mysql.debug
 });
 db.connect();
 

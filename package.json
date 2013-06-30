@@ -1,5 +1,5 @@
 {
-  "name": "application-name",
+  "name": "node_info",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -17,5 +17,14 @@
     "mmmagic": "0.3.1",
     "findit": "0.1.2",
     "rimraf": "2.2.0"
+  },
+  "devDependencies": {
+	"grunt": "~0.4.1",
+	"grunt-contrib-jshint": "~0.6.0",
+	"grunt-contrib-nodeunit": "~0.2.0",
+	"grunt-contrib-uglify": "~0.2.2",
+	"grunt-contrib-copy": "~0.4.1",
+	"grunt-contrib-clean": "~0.4.1",
+	"grunt-contrib-stylus": "~0.5.1"
   }
 }

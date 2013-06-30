@@ -2,7 +2,11 @@ exports.dbconfig = {
 	mysql: {
 		user: '<user>',
 		password: '<password>',
-		database: '<database>'
+		database: '<database>',
+		host: '<host>',
+		port: <port>,
+		charset: '<charset>',
+		debug: <debug>
 	}
 };
 
