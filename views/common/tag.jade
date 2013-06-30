@@ -1,0 +1,21 @@
+mixin list_tags_in_container(tags, objType, objId)
+	div.common-tag-container(tag-can-edit='true', tag-obj-type='#{objType}', tag-obj-id='#{objId}')
+		div.common-tag-title Tags: &nbsp;
+		div.common-tag-content
+			ul.clearfix.inline
+				if tags && tags.length > 0
+					each tag, i in tags
+						li.tag-item
+							a #{tag}
+							i.single-tag-op.icon-remove
+						
+mixin list_tags_in_container_readonly(tags)
+	div.common-tag-container
+		div.common-tag-title Tags: &nbsp;
+		div.common-tag-content
+			ul.clearfix.inline
+				if tags && tags.length > 0
+					each tag, i in tags
+						li.tag-item
+							a #{tag}
+					

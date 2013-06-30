@@ -48,5 +48,12 @@ html
 					div.modal-footer
 						button.btn(data-dismiss="modal") Close
 						button#myCommonModalDlg-save.btn.btn-primary Save
+				
+				div#my-warning-dlg.alert.alert-block.alert-error.fade.in
+					button.close(type="button", data-dismiss="alert")x
+					h4.alert-heading Warning
+					p.my-warning-text wanring information here
+					a.btn.my-warning-btn-ok(href="javascript: void(0);") Ok
+					a.btn.my-warning-btn-cancel(href="javascript: void(0);") Cancel
 			
 	block footer-script

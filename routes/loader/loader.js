@@ -6,6 +6,7 @@ var lists = require('../list/lists')
   	, learn = require('../learning/learn')
   	, simpleGetter = require('../common/helper/simpleGetter')
   	, menuOp = require('../menu/menuOp')
+  	, tag = require('../tag/tag')
   	, myTest = require('../_test/testDBAbout')
   	, fileHandler = require('../tools/tool/fileHandle')
   	, dbAccessCommon = require('../tools/dbaccess/commonOp');
@@ -25,6 +26,7 @@ exports.loadRoutes = function(app) {
 	loadMyWorkAboutRoutes(app);
 	loadResourceAboutRoutes(app);
 	loadMenuAboutRoutes(app);
+	loadTagAboutRoutes(app);
 	loadToolsAboutRoutes(app);
 	
 	if (debug_flg) {
@@ -39,6 +41,7 @@ var _loadMyTestAboutRoutes = function(app) {
 	app.get('/myTest/dbWithTrans', myTest.testWhenWithTrans);
 	var pgTest = require('../_test/testPostgres');
 	app.get('/myTest/postgres1', pgTest.testPgFirst);
+	app.get('/myTest/tag1', tag.addTagForItem);
 	var fileTest1 = require('../_test/testHtmlInOtherFolder');
 	app.get('/myTest/file/otherFolder1', fileTest1.serveUploadedHtml);
 	app.get('/myTest/file/unzip1', fileTest1.testUpzipZipFile);
@@ -84,6 +87,10 @@ var loadMenuAboutRoutes = function(app) {
 	app.post('/menu/context/:menuFor', menuOp.getCommonMenu);
 	app.post('/menu/edit', menuOp.editMenuContext);
 	app.post('/menu/update', menuOp.updateMenuContext);
+};
+
+var loadTagAboutRoutes = function(app) {
+	
 };
 
 var loadToolsAboutRoutes = function(app) {

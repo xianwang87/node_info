@@ -28,4 +28,6 @@ $(function(){
 			$this.html(bugHtml);
 		});
 	}
+	
+	MyInfoN.tags.init();
 });

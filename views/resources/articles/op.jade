@@ -74,7 +74,8 @@ mixin article_operation_header_generator(menuPath)
 					a #{pathTmp}
 					span.divider /
 
-				
+include ../../common/tag
+
 mixin menu_article_content_detail
 	div.article_content_container
 		div.article_operation_header
@@ -86,6 +87,10 @@ mixin menu_article_content_detail
 				if article.author
 					| &nbsp; by
 					cite(title="#{article.author}") #{article.author}
+	div.article_tag_container
+		+list_tags_in_container(['aa', 'bb', 'cc', 'hello', 'yes', 'this', 'is', 'for', 'editable', 'tags', 'yes', 'this', 'is', 'for', 'editable', 'tags'], 'Resource', article.id)
+	div.article_tag_container
+		+list_tags_in_container_readonly(['yes', 'this', 'is', 'for', 'readonly', 'tags'])
 	div.menu_article_content_summary
 		div.media
 			a.pull-left

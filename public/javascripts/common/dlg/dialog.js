@@ -58,4 +58,14 @@
 	root.MyInfoN.dlgModal.hide = function() {
 		hideModalDialog();
 	};
+	
+	root.MyInfoN.dlgModal.warning = root.MyInfoN.dlgModal.warning || {};
+	root.MyInfoN.dlgModal.warning.show = function(options) {
+		var $alertDlg = $("#my-warning-dlg");
+		console.log($alertDlg);
+		var text = options.text || "warning information";
+		console.log("text::" + text);
+		$alertDlg.find(".my-warning-text").html(text);
+		$alertDlg.alert();
+	}; 
 })(jQuery);

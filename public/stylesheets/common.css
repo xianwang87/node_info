@@ -75,3 +75,59 @@ a.carousel-control {
 .form-edit .control-group .controls {
 	margin-left: 110px;
 }
+
+/* for tag about start*/
+.common-tag-container ul {
+	list-style: none;
+}
+.common-tag-container ul li.tag-item {
+	cursor: pointer;
+	border: dotted 1px gray;
+	margin: 2px 5px;
+	padding: 0 2px 0 10px;
+}
+.common-tag-container ul li.tag-item:hover,
+.common-tag-container.edit ul li.tag-item {
+	border: solid 1px gray;
+}
+.common-tag-container.edit ul li.tag-item .single-tag-op {
+	display: inline-block;
+}
+.common-tag-container.edit ul li.add-new-tag {
+	display: inline-block;
+}
+.common-tag-container ul li.tag-item a {
+	text-decoration: none;
+	margin-right: 5px;
+}
+.common-tag-title {
+	display: inline-block;
+	width: 10%;
+	float: left;
+}
+.common-tag-container[tag-can-edit='true'] .common-tag-title {
+	cursor: pointer;
+}
+.common-tag-content {
+	display: inline-block;
+	width: 90%;
+}
+.single-tag-op {
+	display: none;
+}
+ul.inline > li.add-new-tag {
+	display: none;
+	margin: 2px 0;
+}
+input.tag-name-input {
+	height: 13px;
+	margin-bottom: 4px;
+	margin-right: 3px;
+}
+li.add-new-tag button.btn {
+	margin-top: -5px;
+}
+/* for tag about end*/
+#my-warning-dlg {
+	/*display: none;*/
+}

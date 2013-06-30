@@ -78,6 +78,11 @@ ul.jqtree-tree .jqtree-element {
   cursor: pointer;
   display: inline-block;
 }
+.article-more-operations {
+  margin-left: 10px;
+  cursor: pointer;
+  display: inline-block;
+}
 .single-title-name {
   cursor: pointer;
 }
@@ -111,4 +116,7 @@ ul.jqtree-tree .jqtree-element {
 }
 #show-more-items-indicator .alert {
   height: 150px;
+}
+.article_tag_container {
+  margin-top: -10px;
 }
