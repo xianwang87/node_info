@@ -1,5 +1,4 @@
 var lists = require('../list/lists')
-	, user = require('../user')
   	, resources = require('../resource/resources')
   	, mywork = require('../mywork/mywork')
   	, login = require('../permission/login')
@@ -18,7 +17,6 @@ exports.loadRoutes = function(app) {
 	app.get('/', lists.taskOp.getTodos);
 	app.get('/login', login.login);
 	app.post('/dologin', login.dologin);
-	app.get('/users', user.list);
 	
 	loadSomeSimpleHelperRoutes(app);
 	
