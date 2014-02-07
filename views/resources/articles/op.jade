@@ -63,16 +63,17 @@ mixin menu_article_edit_form
 
 mixin article_operation_header_generator(menuPath)
 	if menuPath
-		menuPaths = menuPath.split(" > ")
-		menuLen = menuPaths.length
-		each pathTmp, i in menuPaths
-			if i == menuLen-1
-				li 
-					a #{pathTmp}
-			else
-				li.active 
-					a #{pathTmp}
-					span.divider /
+		- var menuPaths = menuPath.split(" > ")
+		if (menuPaths && menuPaths.length > 0) 
+			- var menuLen = menuPaths.length
+			each pathTmp, i in menuPaths
+				if i == menuLen-1
+					li 
+						a #{pathTmp}
+				else
+					li.active 
+						a #{pathTmp}
+						span.divider /
 
 include ../../common/tag
 

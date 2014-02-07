@@ -11,6 +11,9 @@ body {
 .my-real-content {
 	margin-left: 0px;
 }
+.my-real-content1 {
+	margin-left: -10px;
+}
 .task-edit .form-horizontal .control-label {
 	width: 100px;
 	text-align: left;

@@ -1,34 +1,34 @@
-mixin list_items_pagination(total, pageSize, curPage)
-	total = parseFloat(total)
-	pageSize = parseFloat(pageSize)
-	curPage = parseFloat(curPage)
+mixin list_items_pagination(totalArg, pageSizeArg, curPageArg)
+	- var total = parseFloat(totalArg)
+	- var pageSize = parseFloat(pageSizeArg)
+	- var curPage = parseFloat(curPageArg)
 	if total > 0
-		totalPages = Math.floor(total/pageSize) + ((total%pageSize == 0) ? 0 : 1);
+		- var totalPages = Math.floor(total/pageSize) + ((total%pageSize == 0) ? 0 : 1);
 		
-		startPage = curPage - 2
+		- var startPage = curPage - 2
 		if startPage < 1
-			startPage = 1
+			- startPage = 1
 		
-		firstEndPage = curPage + 2
+		- var firstEndPage = curPage + 2
 		
-		blnTooMore = false
-		rightPad = totalPages - curPage
+		- var blnTooMore = false
+		- var rightPad = totalPages - curPage
 		if rightPad > 4
-			blnTooMore = true
+			- blnTooMore = true
 		else
-			firstEndPage = totalPages
+			- firstEndPage = totalPages
 			
 		if firstEndPage > totalPages
-			firstEndPage = totalPages
+			- firstEndPage = totalPages
 			
-		prePage = curPage - 1
+		- var prePage = curPage - 1
 		if prePage < 1
-			prePage = 1
-		nextPage = curPage + 1
+			- prePage = 1
+		- var nextPage = curPage + 1
 		if nextPage > totalPages
-			nextPage = totalPages
+			- nextPage = totalPages
 		else if nextPage < 1
-			nextPage = 1
+			- nextPage = 1
 		
 		div.pagination
 			ul

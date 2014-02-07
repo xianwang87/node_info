@@ -3,16 +3,16 @@ mixin list_tool_items(items, detailHref)
 		div.alert.alert-success.my-tool-group-no-data No items were found!
 	else
 		if !detailHref
-			detailHref = '/mytool/html/rdetail/'
+			- detailHref = '/mytool/html/rdetail/'
 		each item, i in items
 			div.single-common1-item
 				div.alert.alert-info.single-common1-item-title 
 					| &nbsp; 
 					a.single-common1-item-title-name(title="#{item.name}"
-										, my-tool-id="#{item.id}"
-										, my-tool-more=true
-										, href='#{detailHref}#{item.id}'
-										, target='_blank'
+										 my-tool-id="#{item.id}"
+										 my-tool-more=true
+										 href='#{detailHref}#{item.id}'
+										 target='_blank'
 										) #{item.name}
 					div.single-common1-item-more-operations
 						ul.inline
@@ -30,9 +30,9 @@ mixin list_tool_items(items, detailHref)
 							
 mixin select_type_for_boolean(order, paramName, defValue)
 	if defValue == 'true' || defValue === true
-		defValue = true
+		- defValue = true
 	else
-		defValue = false
+		- defValue = false
 	select(for-sql-param=true, param-name="#{paramName}", param-order="#{order}")
 		if defValue == true
 			option(value="true", selected) True
@@ -71,7 +71,7 @@ mixin db_sql_detail_run_result(sqlId)
 	div.sql-detail-run-result-container(sql-id="#{sqlId}")
 
 mixin db_sql_detail_db_config_item(id, label, value, type)
-	type = type || "text";
+	- var type = type || "text";
 	div.sql-detail-db-conn-item-single
 		div.db-conn-item-label
 			label #{label}
