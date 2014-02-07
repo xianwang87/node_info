@@ -26,7 +26,9 @@
 	
 	![Resource home page](./docs/screenshots/resource-home.png)
 2. Hover over left navigator to modify categories
+
 	![Hover over left navigator to modify categories](./docs/screenshots/resource-hovertomodifycategories.png)
+	
 3. Edit categories
 	![Edit categories](./docs/screenshots/resource-editcategories.png)
 4. View certain resource item detail
