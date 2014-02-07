@@ -3,7 +3,9 @@
 
 ## Todo
 1. Home
-	>List todo items will be done today.
+	
+	List todo items will be done today.
+	
 	![Todo home page](./docs/screenshots/todo-home.png)
 2. Add a todo item
 	![Add todo item](./docs/screenshots/todo-add.png)
@@ -12,5 +14,7 @@
 	
 ## Resource
 1. Home
-	>List recently added items or items in a certain category.
+	
+	List recently added items or items in a certain category.
+	
 	![Resource home page](./docs/screenshots/resource-home.png)
